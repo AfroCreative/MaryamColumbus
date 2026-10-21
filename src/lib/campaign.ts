@@ -34,8 +34,8 @@ export const fundraisingEvent = {
   address: "5005 Chatterton Rd, Columbus, OH 43232",
   price: 100,
   highlights: ["Food", "Raffles", "Fellowship", "Live Entertainment"],
-  // TODO: link to ticket sales, or leave empty to hide the button.
-  ticketUrl: "",
+  // Tickets are paid by Zelle or cash.
+  payment: { zelle: "pay@maryamcolumbus.org", cash: true },
 } as const;
 
 export const givingTiers = [

@@ -1,3 +1,4 @@
+import { CopyButton } from "@/components/CopyButton";
 import { formatUSD, fundraisingEvent as ev } from "@/lib/campaign";
 
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ev.venue}, ${ev.address}`)}`;
@@ -54,17 +55,26 @@ export function EventCard() {
             <span className="block font-display text-5xl leading-none">{formatUSD(ev.price)}</span>
             <span className="text-[0.65rem] uppercase tracking-[0.25em] text-navy/60">per person</span>
           </p>
-          {ev.ticketUrl ? (
-            <a
-              href={ev.ticketUrl}
-              className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-parchment transition hover:bg-navy/85"
-            >
-              Get tickets
-            </a>
-          ) : (
-            <span className="text-right text-xs text-navy/60">Contact the church for tickets</span>
-          )}
+          <p className="text-right text-xs text-navy/60">
+            Pay with Zelle{ev.payment.cash ? " or cash" : ""}
+          </p>
         </div>
+      </div>
+
+      <div className="border-t border-navy/15 bg-navy/[0.04] px-6 py-5 sm:px-8">
+        <p className="text-[0.65rem] uppercase tracking-[0.3em] text-navy/60">Get your ticket</p>
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+          <p className="min-w-0 text-sm">
+            Send {formatUSD(ev.price)} per person by <span className="font-semibold">Zelle</span> to
+            <span className="block font-semibold [overflow-wrap:anywhere] select-all">{ev.payment.zelle}</span>
+          </p>
+          <CopyButton
+            value={ev.payment.zelle}
+            label={`Copy Zelle address ${ev.payment.zelle}`}
+            className="shrink-0 rounded-full bg-navy px-4 py-1.5 text-xs font-semibold text-parchment transition hover:bg-navy/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+          />
+        </div>
+        {ev.payment.cash && <p className="mt-2 text-sm text-navy/70">Cash is also welcome.</p>}
       </div>
     </article>
   );
