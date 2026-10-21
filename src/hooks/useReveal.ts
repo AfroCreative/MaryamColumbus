@@ -1,12 +1,17 @@
 "use client";
 
 import type { RefObject } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+
+const HIDDEN_BELOW = { autoAlpha: 0, y: 48 };
+const HIDDEN_ABOVE = { autoAlpha: 0, y: -32 };
 
 /**
- * Fades and lifts every `[data-reveal]` descendant of `scope` into place when
- * the section enters the viewport, and reverses when scrolling back up.
- * Elements may set `data-reveal-delay` (seconds) to fine-tune the stagger.
+ * Fades and lifts every `[data-reveal]` descendant of `scope` into place as
+ * it enters the viewport, and lets it drift away as it scrolls off the top,
+ * so copy appears and dissolves with the camera's progress. Each element is
+ * triggered on its own position (batched for staggering), which keeps tall
+ * sections correct on small screens.
  */
 export function useReveal(scope: RefObject<HTMLElement | null>) {
   useGSAP(
@@ -23,20 +28,21 @@ export function useReveal(scope: RefObject<HTMLElement | null>) {
         return;
       }
 
-      gsap.set(items, { autoAlpha: 0, y: 48 });
+      gsap.set(items, HIDDEN_BELOW);
       release();
-      gsap.to(items, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1.1,
-        ease: "power3.out",
-        stagger: (i, el) => Number((el as HTMLElement).dataset.revealDelay ?? i * 0.12),
-        scrollTrigger: {
-          trigger: scope.current,
-          start: "top 65%",
-          end: "bottom 35%",
-          toggleActions: "play reverse play reverse",
-        },
+
+      const show = (batch: Element[]) =>
+        gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: 0.12, overwrite: true });
+
+      ScrollTrigger.batch(items, {
+        start: "top 88%",
+        end: "bottom 8%",
+        onEnter: show,
+        onEnterBack: show,
+        onLeave: (batch) =>
+          gsap.to(batch, { ...HIDDEN_ABOVE, duration: 0.6, ease: "power2.in", stagger: 0.05, overwrite: true }),
+        onLeaveBack: (batch) =>
+          gsap.to(batch, { ...HIDDEN_BELOW, duration: 0.6, ease: "power2.in", stagger: 0.05, overwrite: true }),
       });
     },
     { scope },

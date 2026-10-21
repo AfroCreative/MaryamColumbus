@@ -8,6 +8,15 @@ camera flies through the church while the campaign story plays over it.
 - Tailwind CSS v4 (design tokens in `src/app/globals.css`)
 - GSAP 3 with ScrollTrigger, via `@gsap/react`'s `useGSAP`
 
+## Before launch: edit `src/lib/campaign.ts`
+- `campaign.raised`: the real running total. The current value is a placeholder.
+- `campaign.givingUrl`: the church's online giving page. The form sends donors
+  there with `?amount=…&frequency=once|monthly`. Until it's set, the form
+  explains how to give in person or by check.
+- `fundraisingEvent.ticketUrl`: a ticket sales link (optional).
+- Giving-tier names and notes, plus the Vision and Impact copy (in
+  `src/app/page.tsx`), are drafts for the church to review.
+
 ## Run
 ```bash
 npm install

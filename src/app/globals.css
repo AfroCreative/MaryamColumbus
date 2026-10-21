@@ -5,12 +5,15 @@
   --color-parchment: #f4efe6;
   --color-gold: #d4b46a;
   --color-gold-soft: #e8d6a8;
+  --color-navy: #0f2a4f;
 
   --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-ethiopic: var(--font-noto-ethiopic), var(--font-cormorant), serif;
 }
 
 html {
+  scroll-behavior: smooth;
   background: var(--color-ink);
   color-scheme: dark;
 }
@@ -19,6 +22,12 @@ body {
   background: var(--color-ink);
   color: var(--color-parchment);
   font-family: var(--font-sans);
+}
+
+/* Cormorant defaults to old-style figures; lining figures read better in
+   dollar amounts and dates. */
+.font-display {
+  font-feature-settings: "lnum";
 }
 
 /* Lightweight SVG noise used by the stage's film-grain layer. */
@@ -30,4 +39,10 @@ body {
    flash of fully visible text on first paint. */
 .js-reveal-pending [data-reveal] {
   visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
