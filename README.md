@@ -9,7 +9,9 @@ camera flies through the church while the campaign story plays over it.
 - GSAP 3 with ScrollTrigger, via `@gsap/react`'s `useGSAP`
 
 ## Before launch: edit `src/lib/campaign.ts`
-- `campaign.raised`: the real running total. The current value is a placeholder.
+- `campaign.raised`: the running total. While it's `0`, the page shows a
+  pre-launch state with a countdown to the Nov 14 banquet. Enter the real
+  figure and it switches to the live progress meter.
 - `campaign.givingUrl`: the church's online giving page. The form sends donors
   there with `?amount=…&frequency=once|monthly`. Until it's set, the form
   explains how to give in person or by check.

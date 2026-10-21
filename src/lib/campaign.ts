@@ -14,8 +14,9 @@ export const campaign = {
   name: "Building a House of Light",
   project: "$4 Million Renovation Project",
   goal: 4_000_000,
-  // TODO: replace with the real running total before launch.
-  raised: 1_250_000,
+  // Running total. While it's 0 the page shows a pre-launch state pointing
+  // to the banquet; enter the real figure to switch to the live meter.
+  raised: 0,
   currency: "USD",
   // TODO: link to the church's online giving page (Givelify, Tithe.ly, PayPal,
   // Zeffy…). The donation form sends donors here with `amount` and

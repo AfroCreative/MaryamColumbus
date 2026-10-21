@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Waypoint } from "@/components/sections/Waypoint";
 import { FlyThroughStage } from "@/components/stage/FlyThroughStage";
 import { WaypointNav } from "@/components/WaypointNav";
-import { campaign, church, formatUSD } from "@/lib/campaign";
+import { campaign, church, formatUSD, fundraisingEvent } from "@/lib/campaign";
 
 const eyebrow = "text-xs uppercase tracking-[0.35em] text-gold";
 const heading = "font-display font-light leading-[1.02] text-balance";
@@ -43,6 +43,7 @@ const impact = [
 ];
 
 export default function Home() {
+  const launched = campaign.raised > 0;
   const pct = Math.round((campaign.raised / campaign.goal) * 100);
   const { street, city, region, postal } = church.address;
 
@@ -93,7 +94,15 @@ export default function Home() {
                   See the vision
                 </a>
                 <span className="text-sm text-parchment/60">
-                  <span className="text-gold-soft">{pct}%</span> of our goal raised
+                  {launched ? (
+                    <>
+                      <span className="text-gold-soft">{pct}%</span> of our goal raised
+                    </>
+                  ) : (
+                    <>
+                      Campaign launches <span className="text-gold-soft">{fundraisingEvent.dateLabel}</span>
+                    </>
+                  )}
                 </span>
               </div>
             </div>
@@ -140,7 +149,9 @@ export default function Home() {
               {campaign.project}
             </h2>
             <p data-reveal className={`${body} mt-6 max-w-2xl`}>
-              Together we have already come a long way. Every gift, large or small, moves the line forward.
+              {launched
+                ? "Every gift, large or small, moves the line forward."
+                : `Our campaign begins at the fundraising banquet on ${fundraisingEvent.dateLabel}. Be among the first to light the way: every gift from that day on moves the line forward.`}
             </p>
             <div data-reveal className="mt-12">
               <ProgressMeter />
