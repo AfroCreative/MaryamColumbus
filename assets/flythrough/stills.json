@@ -1,0 +1,30 @@
+{
+  "$comment": "Shots are played in order and cross-faded. focus = point (0–1) the camera pushes toward; zoom = [start, end]; frames = shot length. Add interior renders or site photos as new shots.",
+  "fps": 24,
+  "width": 1920,
+  "height": 1080,
+  "crossfade": 18,
+  "shots": [
+    {
+      "image": "exterior-wide.jpg",
+      "label": "Approach across the grounds",
+      "focus": [0.66, 0.6],
+      "zoom": [1.0, 1.9],
+      "frames": 110
+    },
+    {
+      "image": "facade.jpg",
+      "label": "Arriving at the entrance, through the doors",
+      "focus": [0.53, 0.66],
+      "zoom": [1.0, 3.2],
+      "frames": 150
+    },
+    {
+      "image": "exterior-wide.jpg",
+      "label": "Pull back: the finished church",
+      "focus": [0.62, 0.55],
+      "zoom": [1.45, 1.0],
+      "frames": 100
+    }
+  ]
+}

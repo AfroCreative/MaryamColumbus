@@ -43,9 +43,37 @@ smoothed value that does not depend on frame rate. Renderers read
 never re-renders React. Smoothing is turned off when the user prefers reduced
 motion.
 
-## Assets
-- Frame sequence: `public/flythrough/frames/`
-- 3D model (.glb / .gltf): `public/flythrough/models/`
+## Fly-through assets (image-sequence canvas)
 
-The exact naming conventions will be documented once the rendering approach
-is chosen.
+The background is a numbered frame sequence drawn to a `<canvas>`
+(`FrameSequenceRenderer`). Frames stream in coarse-to-fine, so the whole
+flight can be scrubbed straight away and fills in as it loads. If
+`public/flythrough/frames/manifest.json` is missing, a procedural
+placeholder renders instead.
+
+There are two ways to produce frames. Both need `ffmpeg`, and both write
+`public/flythrough/frames/frame_0001.webp …` plus `manifest.json`.
+
+### A. From drone / cinematic video
+```bash
+scripts/extract-frames.sh path/to/flight.mp4 [fps=24] [width=1920] [quality=72]
+```
+Aim for 150–400 frames (about 20–60 MB). If it's heavier, lower the fps or
+the width.
+
+### B. From still renderings or photos
+1. Put the images in `assets/flythrough/`:
+   - `exterior-wide.jpg`: the wide rendering across the parking lot
+   - `facade.jpg`: the front facade with the arched entrance and icon
+2. Tune the shots in `assets/flythrough/stills.json`. For each shot, `focus`
+   is the 0–1 point the camera pushes toward, `zoom` is `[start, end]`, and
+   `frames` is the shot's length.
+3. Run `node scripts/stills-to-frames.mjs`.
+
+The default flight pushes across the grounds toward the entrance,
+cross-fades to the facade, pushes in through the doors, then pulls back to
+reveal the whole building. Higher-resolution sources (2500 px wide or more)
+keep the deep push-ins sharp. To extend the flight, add interior renderings
+or construction-progress photos as extra shots.
+
+Commit the generated `public/flythrough/frames/` so it deploys with the site.

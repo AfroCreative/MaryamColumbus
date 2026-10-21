@@ -17,9 +17,9 @@ export type WaypointId = "hero" | "vision" | "need" | "impact" | "give";
 // along the fly-through where the camera should be framing that part of the
 // church. The background renderer uses these as keyframe anchors.
 export const waypoints: { id: WaypointId; label: string; at: number }[] = [
-  { id: "hero", label: "Exterior approach", at: 0 },
-  { id: "vision", label: "Through the doors", at: 0.25 },
-  { id: "need", label: "Over the sanctuary", at: 0.5 },
-  { id: "impact", label: "Community hall", at: 0.75 },
-  { id: "give", label: "Rising above the city", at: 1 },
+  { id: "hero", label: "Approach across the grounds", at: 0 },
+  { id: "vision", label: "Arriving at the entrance", at: 0.25 },
+  { id: "need", label: "The icon above the doors", at: 0.5 },
+  { id: "impact", label: "Through the doors", at: 0.75 },
+  { id: "give", label: "The finished church", at: 1 },
 ];
