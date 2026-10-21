@@ -48,7 +48,7 @@ export function FlyThroughStage() {
       )}
 
       {/* Top/bottom gradient for nav + body copy legibility. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/20 to-ink/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/35 to-ink/85" />
       {/* Radial vignette to pull focus to the centre of the frame. */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgb(5_6_10/0.85)_100%)]" />
       {/* Subtle film grain. */}

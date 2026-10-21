@@ -1,29 +1,33 @@
 {
-  "$comment": "Shots are played in order and cross-faded. focus = point (0–1) the camera pushes toward; zoom = [start, end]; frames = shot length. Add interior renders or site photos as new shots.",
+  "$comment": "Shots play in order and cross-fade. from/to = the point (0–1 of the image) the camera is centred on at the start and end of the shot; zoom = [start, end]; frames = shot length. transition = any ffmpeg xfade transition (fade, fadeblack, fadewhite, dissolve…). The source renderings are ~815px wide, so zooms are kept modest; raise them with higher-resolution originals.",
   "fps": 24,
-  "width": 1920,
-  "height": 1080,
-  "crossfade": 18,
+  "width": 1280,
+  "height": 720,
+  "crossfade": 20,
+  "transition": "fadeblack",
   "shots": [
     {
-      "image": "exterior-wide.jpg",
-      "label": "Approach across the grounds",
-      "focus": [0.66, 0.6],
-      "zoom": [1.0, 1.9],
+      "image": "exterior-wide.webp",
+      "label": "Approach across the grounds toward the entrance",
+      "from": [0.5, 0.5],
+      "to": [0.66, 0.56],
+      "zoom": [1.0, 1.5],
       "frames": 110
     },
     {
-      "image": "facade.jpg",
-      "label": "Arriving at the entrance, through the doors",
-      "focus": [0.53, 0.66],
-      "zoom": [1.0, 3.2],
+      "image": "facade.webp",
+      "label": "Arriving at the facade, pushing toward the icon and doors",
+      "from": [0.5, 0.5],
+      "to": [0.53, 0.56],
+      "zoom": [1.0, 1.75],
       "frames": 150
     },
     {
-      "image": "exterior-wide.jpg",
+      "image": "exterior-wide.webp",
       "label": "Pull back: the finished church",
-      "focus": [0.62, 0.55],
-      "zoom": [1.45, 1.0],
+      "from": [0.66, 0.56],
+      "to": [0.5, 0.5],
+      "zoom": [1.4, 1.0],
       "frames": 100
     }
   ]

@@ -72,19 +72,24 @@ scripts/extract-frames.sh path/to/flight.mp4 [fps=24] [width=1920] [quality=72]
 Aim for 150–400 frames (about 20–60 MB). If it's heavier, lower the fps or
 the width.
 
-### B. From still renderings or photos
-1. Put the images in `assets/flythrough/`:
-   - `exterior-wide.jpg`: the wide rendering across the parking lot
-   - `facade.jpg`: the front facade with the arched entrance and icon
-2. Tune the shots in `assets/flythrough/stills.json`. For each shot, `focus`
-   is the 0–1 point the camera pushes toward, `zoom` is `[start, end]`, and
-   `frames` is the shot's length.
-3. Run `node scripts/stills-to-frames.mjs`.
+### B. From still renderings or photos (current setup)
+The live flight is built from the two exterior renderings in
+`assets/flythrough/`:
+- `exterior-wide.webp`: the wide view across the parking lot
+- `facade.webp`: the front facade with the arched entrance and icon
 
-The default flight pushes across the grounds toward the entrance,
-cross-fades to the facade, pushes in through the doors, then pulls back to
-reveal the whole building. Higher-resolution sources (2500 px wide or more)
-keep the deep push-ins sharp. To extend the flight, add interior renderings
-or construction-progress photos as extra shots.
+Shots are defined in `assets/flythrough/stills.json`:
+- `from` / `to`: the 0–1 point the camera is centred on at the start and end
+  of the shot. End each push centred on its subject so it stays in view on
+  phones.
+- `zoom`: `[start, end]`
+- `frames`: the shot's length
+- `transition`: how shots join; any ffmpeg xfade name. The default
+  `fadeblack` dips to dark.
+
+Rebuild with `node scripts/stills-to-frames.mjs`. The current renderings are
+about 815 px wide, so zooms are kept gentle. With originals 2500 px or wider,
+raise `width` to 1920 and push the zooms further. Interior renderings or
+construction photos can be added as more shots.
 
 Commit the generated `public/flythrough/frames/` so it deploys with the site.

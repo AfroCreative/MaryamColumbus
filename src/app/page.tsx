@@ -9,9 +9,12 @@ import { FlyThroughStage } from "@/components/stage/FlyThroughStage";
 import { WaypointNav } from "@/components/WaypointNav";
 import { campaign, church, formatUSD, fundraisingEvent } from "@/lib/campaign";
 
-const eyebrow = "text-xs uppercase tracking-[0.35em] text-gold";
-const heading = "font-display font-light leading-[1.02] text-balance";
-const body = "text-lg leading-relaxed text-parchment/80 text-pretty";
+// Copy sits directly on the rendering, so it carries a soft shadow to stay
+// legible over bright walls and sky.
+const onImage = "[text-shadow:0_1px_16px_rgb(5_6_10/0.75)]";
+const eyebrow = `text-xs font-medium uppercase tracking-[0.35em] text-gold ${onImage}`;
+const heading = `font-display font-light leading-[1.02] text-balance ${onImage}`;
+const body = `text-lg leading-relaxed text-parchment/90 text-pretty ${onImage}`;
 
 const vision = [
   { title: "A renewed sanctuary", text: "A worthy home for the Divine Liturgy, the feasts and the prayers of our people." },
@@ -70,7 +73,7 @@ export default function Home() {
               <p data-reveal className={`${eyebrow} mt-8`}>
                 {church.name}
               </p>
-              <p data-reveal lang="ti" className="mt-3 font-ethiopic text-lg text-gold-soft/90">
+              <p data-reveal lang="ti" className={`mt-3 font-ethiopic text-lg text-gold-soft ${onImage}`}>
                 {church.parishGeez}
               </p>
               <h1 data-reveal className={`${heading} mt-6 text-6xl sm:text-8xl`}>
@@ -93,7 +96,7 @@ export default function Home() {
                 >
                   See the vision
                 </a>
-                <span className="text-sm text-parchment/60">
+                <span className={`text-sm text-parchment/75 ${onImage}`}>
                   {launched ? (
                     <>
                       <span className="text-gold-soft">{pct}%</span> of our goal raised
@@ -127,7 +130,7 @@ export default function Home() {
                 Our parish carries the name of light. This renovation renews the building we call home, so that every
                 person who walks through its doors can find peace, prayer and a family in faith.
               </p>
-              <ul className="mt-10 space-y-6 border-l border-gold/40 pl-6">
+              <ul className={`mt-10 space-y-6 border-l border-gold/40 pl-6 ${onImage}`}>
                 {vision.map((v) => (
                   <li key={v.title} data-reveal>
                     <h3 className="font-display text-2xl">{v.title}</h3>
