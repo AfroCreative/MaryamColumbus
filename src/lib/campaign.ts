@@ -25,6 +25,13 @@ export const campaign = {
   milestones: [1_000_000, 2_000_000, 3_000_000],
 } as const;
 
+// Offline ways to give, shared by the donation form and the banquet card.
+export const giving = {
+  zelle: "pay@maryamcolumbus.org",
+  // Suggested Zelle memo so donations can be told apart from ticket payments.
+  memo: "Renovation",
+} as const;
+
 export const fundraisingEvent = {
   title: "Fundraising Banquet",
   date: "2026-11-14T14:00:00-05:00",
@@ -35,7 +42,7 @@ export const fundraisingEvent = {
   price: 100,
   highlights: ["Food", "Raffles", "Fellowship", "Live Entertainment"],
   // Tickets are paid by Zelle or cash.
-  payment: { zelle: "pay@maryamcolumbus.org", cash: true },
+  payment: { zelle: giving.zelle, cash: true },
 } as const;
 
 export const givingTiers = [

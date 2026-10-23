@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CopyButton } from "@/components/CopyButton";
 import { DonationForm } from "@/components/DonationForm";
 import { EventCard } from "@/components/EventCard";
 import { FlyThroughProvider } from "@/components/FlyThroughProvider";
@@ -7,7 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Waypoint } from "@/components/sections/Waypoint";
 import { FlyThroughStage } from "@/components/stage/FlyThroughStage";
 import { WaypointNav } from "@/components/WaypointNav";
-import { campaign, church, formatUSD, fundraisingEvent } from "@/lib/campaign";
+import { campaign, church, formatUSD, fundraisingEvent, giving } from "@/lib/campaign";
 
 // Copy sits directly on the rendering, so it carries a soft shadow to stay
 // legible over bright walls and sky.
@@ -205,10 +206,38 @@ export default function Home() {
               <div data-reveal className="mt-10 max-w-xl">
                 <EventCard />
               </div>
-              <p data-reveal className="mt-8 max-w-xl text-sm text-parchment/60">
-                Prefer to give by check? Make it payable to {church.name} and mail it to {street}, {city}, {region}{" "}
-                {postal}.
-              </p>
+              <div
+                data-reveal
+                className="mt-8 max-w-xl rounded-3xl border border-white/10 bg-ink/45 p-6 text-sm backdrop-blur-md"
+              >
+                <p className="text-xs uppercase tracking-[0.3em] text-gold-soft/80">Ways to give</p>
+                <dl className="mt-4 space-y-4">
+                  <div>
+                    <dt className="font-display text-xl text-parchment">Zelle</dt>
+                    <dd className="mt-1 flex flex-wrap items-center gap-3 text-parchment/75">
+                      <span className="font-semibold text-parchment [overflow-wrap:anywhere] select-all">
+                        {giving.zelle}
+                      </span>
+                      <CopyButton
+                        value={giving.zelle}
+                        label={`Copy Zelle address ${giving.zelle}`}
+                        className="rounded-full border border-gold/50 px-3 py-1 text-xs font-semibold text-gold-soft transition hover:bg-gold/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                      />
+                    </dd>
+                    <dd className="mt-1 text-parchment/60">Add “{giving.memo}” in the memo.</dd>
+                  </div>
+                  <div>
+                    <dt className="font-display text-xl text-parchment">Cash</dt>
+                    <dd className="mt-1 text-parchment/75">In person at the church.</dd>
+                  </div>
+                  <div>
+                    <dt className="font-display text-xl text-parchment">Check by mail</dt>
+                    <dd className="mt-1 text-parchment/75">
+                      Payable to {church.name}, mailed to {street}, {city}, {region} {postal}.
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
             <div data-reveal>
               <DonationForm />

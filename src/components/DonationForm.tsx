@@ -1,20 +1,21 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import { campaign, church, formatUSD, givingTiers } from "@/lib/campaign";
+import { CopyButton } from "@/components/CopyButton";
+import { campaign, church, formatUSD, giving, givingTiers } from "@/lib/campaign";
 
 type Frequency = "once" | "monthly";
 
 /**
- * Gift picker. It doesn't take payment itself: on submit it hands the donor
- * to the church's online giving page (campaign.givingUrl) with the chosen
- * amount and frequency as query parameters.
+ * Gift picker. It doesn't take payment itself. With an online giving page
+ * (campaign.givingUrl) it hands the donor over with the chosen amount and
+ * frequency; otherwise it shows how to send the gift by Zelle, cash or check.
  */
 export function DonationForm() {
   const [frequency, setFrequency] = useState<Frequency>("once");
   const [tier, setTier] = useState<number | "custom">(givingTiers[1].amount);
   const [custom, setCustom] = useState("");
-  const [notice, setNotice] = useState(false);
+  const [showHowTo, setShowHowTo] = useState(false);
   const customId = useId();
 
   const amount = tier === "custom" ? Number(custom) : tier;
@@ -25,7 +26,7 @@ export function DonationForm() {
     e.preventDefault();
     if (!valid) return;
     if (!campaign.givingUrl) {
-      setNotice(true);
+      setShowHowTo(true);
       return;
     }
     const url = new URL(campaign.givingUrl);
@@ -124,11 +125,30 @@ export function DonationForm() {
         {valid ? `Give ${formatUSD(amount)}${frequency === "monthly" ? " monthly" : ""}` : "Give"}
       </button>
 
-      {notice && (
-        <p role="status" className="mt-4 rounded-2xl border border-gold/40 bg-gold/10 p-4 text-sm text-gold-soft">
-          Online giving is opening soon. Until then, please give in person or mail a check payable to {church.name},{" "}
-          {church.address.street}, {church.address.city}, {church.address.region} {church.address.postal}.
-        </p>
+      {showHowTo && valid && (
+        <div role="status" className="mt-4 rounded-2xl border border-gold/40 bg-gold/10 p-5 text-sm">
+          <p className="font-display text-2xl text-gold-soft">
+            Send {formatUSD(amount)}
+            {frequency === "monthly" ? " each month" : ""} by Zelle
+          </p>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-ink/50 px-4 py-3">
+            <span className="font-semibold text-parchment select-all">{giving.zelle}</span>
+            <CopyButton
+              value={giving.zelle}
+              label={`Copy Zelle address ${giving.zelle}`}
+              className="shrink-0 rounded-full bg-gold px-4 py-1.5 text-xs font-semibold text-ink transition hover:bg-gold-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            />
+          </div>
+          <p className="mt-3 text-parchment/80">
+            In your banking app, choose Zelle and send to this address. Add “{giving.memo}” in the memo so we can record
+            your gift.
+            {frequency === "monthly" ? " Many banks let you schedule the payment to repeat monthly." : ""}
+          </p>
+          <p className="mt-3 text-parchment/60">
+            You can also give cash in person, or mail a check payable to {church.name}, {church.address.street},{" "}
+            {church.address.city}, {church.address.region} {church.address.postal}.
+          </p>
+        </div>
       )}
 
       {campaign.givingUrl && (
