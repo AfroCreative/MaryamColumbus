@@ -32,6 +32,41 @@ export const giving = {
   memo: "Renovation",
 } as const;
 
+export const socials = [
+  { name: "Facebook", url: "https://www.facebook.com/MaryamColumbus/" },
+  { name: "Instagram", url: "https://www.instagram.com/Debrebrhaneotc" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/company/maryamcolumbus" },
+] as const;
+
+// From the church's Candid profile URL; donors use it to find the church on
+// workplace-giving platforms.
+export const ein = "31-1746535";
+
+// Online fundraising and workplace-giving pages. Leave `url` empty to show a
+// platform as text only (donors search for the church by name or EIN).
+export const givingPlatforms = [
+  {
+    name: "Candid",
+    description: "Our verified nonprofit profile.",
+    cta: "View profile",
+    url: "https://app.candid.org/profile/7352740/saint-mary-eritrean-orthodox-tewahdo-church---columbus-oh-31-1746535",
+  },
+  {
+    name: "Benevity",
+    description: "Give through your employer’s workplace giving program.",
+    cta: "Open Benevity",
+    // TODO: replace with the church's own Benevity cause page if there is one.
+    url: "https://benevity.org",
+  },
+  {
+    name: "Bonterra",
+    description: "Give through your employer’s workplace giving program.",
+    cta: "Open Bonterra",
+    // TODO: add the church's Bonterra campaign page link.
+    url: "",
+  },
+] as const;
+
 export const fundraisingEvent = {
   title: "Fundraising Banquet",
   date: "2026-11-14T14:00:00-05:00",
@@ -73,6 +108,10 @@ export const faqs = [
   {
     q: "Can I give monthly?",
     a: "Yes. Many banking apps let you schedule a Zelle payment to repeat every month.",
+  },
+  {
+    q: "Can I give through my employer?",
+    a: `If your employer offers workplace giving through Benevity or Bonterra, search for Saint Mary Eritrean Orthodox Tewahdo Church or our EIN, ${ein}. Ask your employer whether they also match gifts.`,
   },
   {
     q: "Where is the church?",

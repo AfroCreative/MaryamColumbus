@@ -24,7 +24,7 @@ section:
 | Vision (`#vision`) | Three feature cards and both architectural renderings |
 | Progress (`#progress`) | Goal / raised meter and "What your gift builds" cards |
 | Banquet (`#banquet`) | Event details, directions link and the ticket card |
-| Give (`#give`) | Donation form and the Zelle / cash / check options |
+| Give (`#give`) | Donation form, Zelle / cash / check, and Candid / Benevity / Bonterra |
 | FAQ (`#faq`) | Common questions |
 
 ## Updating content
@@ -39,6 +39,10 @@ Everything editable lives in `src/lib/campaign.ts`:
   amount.
 - `fundraisingEvent`: banquet date, time, venue, price and payment methods.
 - `givingTiers`, `faqs`, `navLinks`: gift amounts, FAQ entries and menu items.
+- `socials`: Facebook, Instagram and LinkedIn links (footer).
+- `givingPlatforms` / `ein`: Candid, Benevity and Bonterra cards in the Give
+  section. Leave a `url` empty to show that platform as "search for us by
+  name or EIN".
 
 Images live in `public/`: `debre-brhan-emblem.png` and
 `images/facade.webp` / `images/exterior-wide.webp` (the renderings). To use

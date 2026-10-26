@@ -5,7 +5,19 @@ import { DonationForm } from "@/components/DonationForm";
 import { EventCard } from "@/components/EventCard";
 import { ProgressMeter } from "@/components/ProgressMeter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { campaign, church, faqs, formatShortUSD, formatUSD, fundraisingEvent, giving, navLinks } from "@/lib/campaign";
+import { SocialLinks } from "@/components/SocialLinks";
+import {
+  campaign,
+  church,
+  ein,
+  faqs,
+  formatShortUSD,
+  formatUSD,
+  fundraisingEvent,
+  giving,
+  givingPlatforms,
+  navLinks,
+} from "@/lib/campaign";
 
 const container = "mx-auto max-w-6xl px-4 sm:px-6 lg:px-8";
 const eyebrow = "text-sm font-semibold uppercase tracking-wider text-gold-ink";
@@ -22,6 +34,7 @@ const icons = {
   phone: "M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h2",
   check: "M5 12.5l4.5 4.5L19 7.5",
   pin: "M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Zm0-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z",
+  external: "M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5",
 } as const;
 
 type IconName = keyof typeof icons;
@@ -81,6 +94,8 @@ const renderings = [
     alt: "Rendering of the full church exterior seen across the parking lot",
   },
 ];
+
+const candidUrl = givingPlatforms.find((g) => g.name === "Candid")?.url;
 
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `${fundraisingEvent.venue}, ${fundraisingEvent.address}`,
@@ -336,6 +351,39 @@ export default function Home() {
                 </dl>
               </div>
             </div>
+
+            <div className="mt-12">
+              <div className="flex flex-wrap items-end justify-between gap-2">
+                <h3 className="font-display text-3xl font-semibold">Give online or through work</h3>
+                <p className="text-sm text-navy/60">
+                  EIN <span className="font-semibold text-navy">{ein}</span>
+                </p>
+              </div>
+              <ul className="mt-6 grid gap-5 md:grid-cols-3">
+                {givingPlatforms.map((g) => (
+                  <li key={g.name} className="flex flex-col rounded-3xl bg-cream p-6 ring-1 ring-navy/10">
+                    <p className="font-display text-2xl font-semibold">{g.name}</p>
+                    <p className="mt-1 text-sm text-navy/70">{g.description}</p>
+                    <div className="mt-auto pt-5">
+                      {g.url ? (
+                        <a
+                          href={g.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold ring-1 ring-navy/15 transition hover:ring-navy/40"
+                        >
+                          {g.cta}
+                          <Icon name="external" className="h-4 w-4" />
+                          <span className="sr-only">(opens in a new tab)</span>
+                        </a>
+                      ) : (
+                        <p className="text-sm text-navy/60">Search for our church by name or EIN.</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -377,6 +425,8 @@ export default function Home() {
                 <br />
                 {city}, {region} {postal}
               </address>
+              <p className="mt-6 text-sm font-semibold text-white">Follow us</p>
+              <SocialLinks className="mt-3" />
             </div>
           </div>
           <nav aria-label="Footer">
@@ -395,6 +445,17 @@ export default function Home() {
             <p className="text-sm font-semibold text-white">Give by Zelle</p>
             <p className="mt-3 text-sm">{giving.zelle}</p>
             <p className="mt-1 text-sm text-white/60">Memo: “{giving.memo}”</p>
+            <p className="mt-6 text-sm font-semibold text-white">Nonprofit profile</p>
+            <a
+              href={candidUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm hover:text-white"
+            >
+              Candid · EIN {ein}
+              <Icon name="external" className="h-3.5 w-3.5" />
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
           </div>
         </div>
       </footer>
