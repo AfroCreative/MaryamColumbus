@@ -3,19 +3,22 @@ import { formatUSD, fundraisingEvent as ev } from "@/lib/campaign";
 
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ev.venue}, ${ev.address}`)}`;
 
-/** Banquet invitation styled after the printed ticket (navy, cream, gold). */
+/**
+ * Banquet invitation styled after the printed ticket (navy, cream, gold).
+ * The perforation notches are painted navy-deep to match the section behind it.
+ */
 export function EventCard() {
   return (
-    <article className="relative overflow-hidden rounded-3xl bg-parchment text-navy shadow-2xl shadow-black/40">
-      <div className="bg-navy px-6 py-5 text-parchment sm:px-8">
+    <article className="relative overflow-hidden rounded-3xl bg-cream text-navy shadow-2xl shadow-black/30">
+      <div className="bg-navy px-6 py-5 text-white sm:px-8">
         <p className="text-[0.65rem] uppercase tracking-[0.3em] text-gold">Join us in person</p>
         <h3 className="mt-1 font-display text-3xl">{ev.title}</h3>
       </div>
 
       {/* Perforation between the ticket body and its header. */}
       <div aria-hidden className="relative h-0 border-t-2 border-dashed border-navy/20">
-        <span className="absolute -top-3 -left-3 h-6 w-6 rounded-full bg-ink" />
-        <span className="absolute -top-3 -right-3 h-6 w-6 rounded-full bg-ink" />
+        <span className="absolute -top-3 -left-3 h-6 w-6 rounded-full bg-navy-deep" />
+        <span className="absolute -top-3 -right-3 h-6 w-6 rounded-full bg-navy-deep" />
       </div>
 
       <div className="grid gap-6 px-6 py-6 sm:grid-cols-[1fr_auto] sm:px-8">
@@ -71,7 +74,7 @@ export function EventCard() {
           <CopyButton
             value={ev.payment.zelle}
             label={`Copy Zelle address ${ev.payment.zelle}`}
-            className="shrink-0 rounded-full bg-navy px-4 py-1.5 text-xs font-semibold text-parchment transition hover:bg-navy/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+            className="shrink-0 rounded-full bg-navy px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-navy/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
           />
         </div>
         {ev.payment.cash && <p className="mt-2 text-sm text-navy/70">Cash is also welcome.</p>}

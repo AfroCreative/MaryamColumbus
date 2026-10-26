@@ -1,5 +1,5 @@
 // Single source of truth for campaign copy and numbers. The UI and the
-// fly-through waypoints read from here, so updating the total raised or the
+// FAQ read from here, so updating the total raised or the
 // giving links never requires touching components.
 
 export const church = {
@@ -52,26 +52,33 @@ export const givingTiers = [
   { amount: 5_000, name: "Cornerstone", note: "A lasting foundation for the church and community." },
 ] as const;
 
-export type WaypointId = "hero" | "vision" | "need" | "impact" | "give";
+// Sections listed in the top menu, in page order.
+export const navLinks = [
+  { id: "vision", label: "Vision" },
+  { id: "progress", label: "Progress" },
+  { id: "banquet", label: "Banquet" },
+  { id: "give", label: "Give" },
+  { id: "faq", label: "FAQ" },
+] as const;
 
-// Each waypoint is a scroll section. `at` is the normalized position (0–1)
-// along the fly-through where the camera should be framing that part of the
-// church. The background renderer uses these as keyframe anchors.
-export const waypoints: { id: WaypointId; label: string; at: number }[] = [
-  { id: "hero", label: "Approach across the grounds", at: 0 },
-  { id: "vision", label: "Arriving at the entrance", at: 0.25 },
-  { id: "need", label: "The icon above the doors", at: 0.5 },
-  { id: "impact", label: "Through the doors", at: 0.75 },
-  { id: "give", label: "The finished church", at: 1 },
-];
-
-export const navLabels: Record<WaypointId, string> = {
-  hero: "Welcome",
-  vision: "Vision",
-  need: "Progress",
-  impact: "Impact",
-  give: "Give",
-};
+export const faqs = [
+  {
+    q: "How do I buy a banquet ticket?",
+    a: `Tickets are $${fundraisingEvent.price} per person. Send payment by Zelle to ${giving.zelle}, or pay with cash.`,
+  },
+  {
+    q: "How can I donate?",
+    a: `Send your gift by Zelle to ${giving.zelle} and add "${giving.memo}" in the memo. You can also give cash in person or mail a check payable to ${church.name}.`,
+  },
+  {
+    q: "Can I give monthly?",
+    a: "Yes. Many banking apps let you schedule a Zelle payment to repeat every month.",
+  },
+  {
+    q: "Where is the church?",
+    a: `${church.address.street}, ${church.address.city}, ${church.address.region} ${church.address.postal}.`,
+  },
+] as const;
 
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 export const formatUSD = (n: number) => usd.format(n);

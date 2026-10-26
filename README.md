@@ -1,27 +1,12 @@
-# Church Fundraising Fly-Through
+# St. Mary Debre Brhan Renovation Campaign
 
-A Next.js landing page with a scroll-scrubbed background. As you scroll, the
-camera flies through the church while the campaign story plays over it.
+Fundraising site for St. Mary Eritrean Orthodox Tewahdo Church (Debre Brhan),
+1415 Sunbury Rd, Columbus, OH. It covers the $4 million renovation campaign
+and the November 14, 2026 fundraising banquet.
 
 ## Stack
 - Next.js 15 (App Router) with TypeScript
-- Tailwind CSS v4 (design tokens in `src/app/globals.css`)
-- GSAP 3 with ScrollTrigger, via `@gsap/react`'s `useGSAP`
-
-## Before launch: edit `src/lib/campaign.ts`
-- `campaign.raised`: the running total. While it's `0`, the page shows a
-  pre-launch state with a countdown to the Nov 14 banquet. Enter the real
-  figure and it switches to the live progress meter.
-- `giving.zelle` / `giving.memo`: the Zelle address for gifts and banquet
-  tickets, and the memo donors are asked to add ("Renovation").
-- `campaign.givingUrl`: optional online giving page. While it's empty,
-  pressing Give shows Zelle, cash and check instructions for the chosen
-  amount. Once it's set, donors are sent there with
-  `?amount=…&frequency=once|monthly`.
-- `fundraisingEvent.payment`: how banquet tickets are paid (Zelle address,
-  cash).
-- Giving-tier names and notes, plus the Vision and Impact copy (in
-  `src/app/page.tsx`), are drafts for the church to review.
+- Tailwind CSS v4 (colour and font tokens in `src/app/globals.css`)
 
 ## Run
 ```bash
@@ -29,71 +14,32 @@ npm install
 npm run dev   # http://localhost:3000
 ```
 
-## Architecture
-```
-src/
-  app/
-    layout.tsx            fonts, metadata, no-JS reveal fallback
-    page.tsx              the five narrative waypoints
-    globals.css           Tailwind theme (ink / parchment / gold, serif display)
-  lib/
-    gsap.ts               plugin registration + global GSAP/ScrollTrigger config
-    campaign.ts           campaign copy, goal/raised numbers, waypoint anchors
-  hooks/
-    useScrollTimeline.ts  scrub:true master timeline + lerp-smoothed progress
-    useReveal.ts          fade/upward reveal for [data-reveal] elements
-  components/
-    FlyThroughProvider.tsx  shares the scroll timeline through context
-    stage/FlyThroughStage.tsx   fixed inset-0 z-0 background + vignette
-    stage/PlaceholderRenderer.tsx  test renderer until real assets land
-    sections/Waypoint.tsx   min-h-screen scroll section
-```
+## Page layout
+A single page with a sticky top menu (plus a mobile menu) that jumps to each
+section:
 
-### How scrubbing works
-`useScrollTimeline` builds a one-second linear GSAP timeline attached to a
-ScrollTrigger with `scrub: true`, running from the top of the narrative to the
-bottom. On every `gsap.ticker` frame its raw progress is lerped into a
-smoothed value that does not depend on frame rate. Renderers read
-`progress.current` in their own loop, or call `subscribe()`, so scrolling
-never re-renders React. Smoothing is turned off when the user prefers reduced
-motion.
+| Section | What it shows |
+| --- | --- |
+| Hero | Church name, goal, donate and banquet buttons, the facade rendering |
+| Vision (`#vision`) | Three feature cards and both architectural renderings |
+| Progress (`#progress`) | Goal / raised meter and "What your gift builds" cards |
+| Banquet (`#banquet`) | Event details, directions link and the ticket card |
+| Give (`#give`) | Donation form and the Zelle / cash / check options |
+| FAQ (`#faq`) | Common questions |
 
-## Fly-through assets (image-sequence canvas)
+## Updating content
+Everything editable lives in `src/lib/campaign.ts`:
+- `campaign.raised`: the running total. While it's `0`, the progress card
+  shows the goal and a countdown to the banquet. Enter the real figure and
+  it switches to the live meter.
+- `giving.zelle` / `giving.memo`: the Zelle address for gifts and tickets,
+  and the memo donors are asked to add.
+- `campaign.givingUrl`: optional online giving page. While it's empty,
+  pressing Give shows Zelle, cash and check instructions for the chosen
+  amount.
+- `fundraisingEvent`: banquet date, time, venue, price and payment methods.
+- `givingTiers`, `faqs`, `navLinks`: gift amounts, FAQ entries and menu items.
 
-The background is a numbered frame sequence drawn to a `<canvas>`
-(`FrameSequenceRenderer`). Frames stream in coarse-to-fine, so the whole
-flight can be scrubbed straight away and fills in as it loads. If
-`public/flythrough/frames/manifest.json` is missing, a procedural
-placeholder renders instead.
-
-There are two ways to produce frames. Both need `ffmpeg`, and both write
-`public/flythrough/frames/frame_0001.webp …` plus `manifest.json`.
-
-### A. From drone / cinematic video
-```bash
-scripts/extract-frames.sh path/to/flight.mp4 [fps=24] [width=1920] [quality=72]
-```
-Aim for 150–400 frames (about 20–60 MB). If it's heavier, lower the fps or
-the width.
-
-### B. From still renderings or photos (current setup)
-The live flight is built from the two exterior renderings in
-`assets/flythrough/`:
-- `exterior-wide.webp`: the wide view across the parking lot
-- `facade.webp`: the front facade with the arched entrance and icon
-
-Shots are defined in `assets/flythrough/stills.json`:
-- `from` / `to`: the 0–1 point the camera is centred on at the start and end
-  of the shot. End each push centred on its subject so it stays in view on
-  phones.
-- `zoom`: `[start, end]`
-- `frames`: the shot's length
-- `transition`: how shots join; any ffmpeg xfade name. The default
-  `fadeblack` dips to dark.
-
-Rebuild with `node scripts/stills-to-frames.mjs`. The current renderings are
-about 815 px wide, so zooms are kept gentle. With originals 2500 px or wider,
-raise `width` to 1920 and push the zooms further. Interior renderings or
-construction photos can be added as more shots.
-
-Commit the generated `public/flythrough/frames/` so it deploys with the site.
+Images live in `public/`: `debre-brhan-emblem.png` and
+`images/facade.webp` / `images/exterior-wide.webp` (the renderings). To use
+higher-resolution renderings, replace those files and keep the names.
