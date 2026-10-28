@@ -85,6 +85,26 @@ const plan = {
   ],
 };
 
+// Drone photos of the current church, shown beside the "Today" list.
+const todayPhotos = [
+  {
+    src: "/images/church-today-aerial.webp",
+    w: 1600,
+    h: 900,
+    caption: "Our church today",
+    note: "Our community gathered outside the church",
+    alt: "Aerial photo of the current church building, with members of the congregation in white gathered outside and cars filling the parking lot",
+  },
+  {
+    src: "/images/church-today-grounds.webp",
+    w: 1500,
+    h: 844,
+    caption: "The grounds on Sunbury Road",
+    note: "Aerial view",
+    alt: "Wide aerial photo of the church grounds on Sunbury Road, surrounded by trees, with a full parking lot",
+  },
+];
+
 const today = [
   "Classrooms are too small for the children who come to learn",
   "Rooms are crowded, with not enough space for everyone to sit",
@@ -232,7 +252,29 @@ export default function Home() {
               together.
             </SectionHeader>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-2">
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              {todayPhotos.map((ph, i) => (
+                <figure
+                  key={ph.src}
+                  className={`flex flex-col overflow-hidden rounded-3xl bg-cream ring-1 ring-navy/10 ${i === 0 ? "lg:col-span-2" : ""}`}
+                >
+                  <Image
+                    src={ph.src}
+                    alt={ph.alt}
+                    width={ph.w}
+                    height={ph.h}
+                    sizes={i === 0 ? "(min-width: 1024px) 720px, 100vw" : "(min-width: 1024px) 360px, 100vw"}
+                    className={`aspect-[16/10] h-auto w-full object-cover ${i === 0 ? "" : "lg:aspect-auto lg:h-0 lg:flex-1"}`}
+                  />
+                  <figcaption className="px-5 py-3 text-sm">
+                    <span className="font-semibold">{ph.caption}</span>
+                    <span className="text-navy/60"> · {ph.note}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
               <div className="rounded-3xl bg-sand p-6 sm:p-8">
                 <p className="text-sm font-semibold uppercase tracking-wider text-navy/60">Today</p>
                 <ul className="mt-5 space-y-4">
@@ -306,7 +348,7 @@ export default function Home() {
               ))}
             </div>
 
-            <h3 className="mt-16 font-display text-3xl font-semibold">See the renovated church</h3>
+            <h3 className="mt-16 font-display text-3xl font-semibold">The renovated church</h3>
             <div className="mt-6 grid gap-5 md:grid-cols-2">
               {renderings.map((img) => (
                 <figure key={img.src} className="overflow-hidden rounded-3xl bg-white ring-1 ring-navy/10">

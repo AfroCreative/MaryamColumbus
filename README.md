@@ -23,7 +23,7 @@ section:
 | Section | What it shows |
 | --- | --- |
 | Hero | Church name, goal, donate and banquet buttons, the facade rendering |
-| Why (`#why`) | The need: today's crowded classrooms vs. what the project builds |
+| Why (`#why`) | Drone photos of the church today, then crowded classrooms vs. what the project builds |
 | The plan (`#plan`) | New classrooms (main focus), gathering hall, sanctuary expansion, renderings |
 | Progress (`#progress`) | Goal / raised meter and "What your gift builds" cards |
 | Banquet (`#banquet`) | Event details, directions link and the ticket card |
@@ -47,6 +47,8 @@ Everything editable lives in `src/lib/campaign.ts`:
   section. Leave a `url` empty to show that platform as "search for us by
   name or EIN".
 
-Images live in `public/`: `debre-brhan-emblem.png` and
-`images/facade.webp` / `images/exterior-wide.webp` (the renderings). To use
+Images live in `public/`: `debre-brhan-emblem.png`,
+`images/facade.webp` / `images/exterior-wide.webp` (the renderings), and
+`images/church-today-aerial.webp` / `images/church-today-grounds.webp` (drone
+photos of the current church, shown in the Why section). To use
 higher-resolution renderings, replace those files and keep the names.
