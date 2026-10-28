@@ -33,6 +33,9 @@ const icons = {
   target: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-4a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z",
   phone: "M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h2",
   check: "M5 12.5l4.5 4.5L19 7.5",
+  book: "M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Zm0 15A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5ZM9 7h7m-7 3.5h5",
+  crowd: "M7 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm10 0a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM3 19v-1.5A3.5 3.5 0 0 1 6.5 14h1M21 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-1M8 20v-1.5a4 4 0 0 1 8 0V20",
+  x: "M7 7l10 10M17 7 7 17",
   pin: "M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Zm0-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z",
   external: "M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5",
 } as const;
@@ -57,25 +60,48 @@ function SectionHeader({ kicker, title, children }: { kicker: string; title: Rea
   );
 }
 
-const vision: { icon: IconName; title: string; text: string }[] = [
-  {
-    icon: "church",
-    title: "A renewed sanctuary",
-    text: "A worthy home for the Divine Liturgy, the feasts and the prayers of our people.",
+// What the campaign builds, in priority order. Classrooms are the main focus.
+const plan = {
+  primary: {
+    icon: "book" as IconName,
+    badge: "Main focus",
+    title: "New classrooms",
+    text: "Bright, properly sized classrooms where every child has a seat. Today our rooms are too small and crowded for everyone to sit and learn. New classrooms give our children and youth the space to learn the faith together.",
+    points: ["Enough seats for every student", "Room for children and youth classes", "Space for teachers to teach well"],
   },
-  {
-    icon: "door",
-    title: "A welcoming entrance",
-    text: "An arched doorway crowned by the icon of our Holy Mother, open to all of Columbus.",
-  },
-  { icon: "people", title: "Room to gather", text: "Space for fellowship, celebrations and a growing parish family." },
+  secondary: [
+    {
+      icon: "crowd" as IconName,
+      badge: "Priority",
+      title: "A gathering hall",
+      text: "A hall big enough for the whole community: meals after the liturgy, feasts, celebrations and events.",
+    },
+    {
+      icon: "church" as IconName,
+      badge: "Also planned",
+      title: "An expanded sanctuary",
+      text: "More room in the sanctuary for worship as our parish family grows.",
+    },
+  ],
+};
+
+const today = [
+  "Classrooms are too small for the children who come to learn",
+  "Rooms are crowded, with not enough space for everyone to sit",
+  "No hall large enough for the whole community to gather",
+];
+
+const withYourHelp = [
+  "New classrooms where every child has a seat",
+  "A gathering hall for meals, feasts and community events",
+  "An expanded sanctuary for worship",
 ];
 
 const impact = [
-  { title: "Faith handed down", text: "Our children and grandchildren will learn the faith in a church built to last." },
-  { title: "Fellowship that grows", text: "Baptisms, weddings, feasts and holidays: room for every milestone we share." },
-  { title: "A light on Sunbury Road", text: "A landmark that welcomes newcomers and neighbors to the Eritrean Orthodox tradition." },
-  { title: "A home that is ours", text: "A renovated church that belongs to the community, now and for generations." },
+  { title: "A seat for every child", text: "Classrooms with enough room for every child who comes to learn." },
+  { title: "Faith handed down", text: "Children and youth learn the faith and traditions of their parents and grandparents." },
+  { title: "A hall for our community", text: "A place for meals, feasts, celebrations and gatherings large and small." },
+  { title: "Room to worship", text: "An expanded sanctuary with room for our growing parish family." },
 ];
 
 const renderings = [
@@ -135,11 +161,12 @@ export default function Home() {
                 {church.parishGeez}
               </p>
               <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] text-balance sm:text-6xl lg:text-7xl">
-                Building a <span className="text-gold-ink italic">House of Light</span>
+                Room for every child to <span className="text-gold-ink italic">learn and grow</span>
               </h1>
               <p className={`${lead} max-w-xl`}>
-                Help us raise <strong className="font-semibold text-navy">{formatUSD(campaign.goal)}</strong> to
-                renovate our church on Sunbury Road: a place of prayer, fellowship and faith for generations to come.
+                Our classrooms are too small and crowded: there isn’t enough space for everyone to sit and learn. Help
+                us raise <strong className="font-semibold text-navy">{formatUSD(campaign.goal)}</strong> to build new
+                classrooms and a gathering hall for our community, and to expand our sanctuary.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
@@ -196,36 +223,93 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Vision */}
-        <section id="vision" className="bg-white py-16 sm:py-24">
+        {/* Why */}
+        <section id="why" className="bg-white py-16 sm:py-24">
           <div className={container}>
-            <SectionHeader
-              kicker="The vision"
-              title={
-                <>
-                  Debre Brhan: <span className="text-gold-ink italic">the Mount of Light</span>
-                </>
-              }
-            >
-              Our parish carries the name of light. This renovation renews the building we call home, so that everyone
-              who walks through its doors can find peace, prayer and a family in faith.
+            <SectionHeader kicker="Why we’re building" title="Our classrooms are full">
+              Our children come to St. Mary to learn the faith, but the rooms we have are too small and crowded. There
+              isn’t enough space for everyone to sit and learn, and no hall big enough for our community to gather
+              together.
             </SectionHeader>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-3">
-              {vision.map((v) => (
-                <div key={v.title} className="rounded-3xl bg-cream p-6 ring-1 ring-navy/5">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-navy text-gold-light">
-                    <Icon name={v.icon} className="h-6 w-6" />
+            <div className="mt-12 grid gap-5 md:grid-cols-2">
+              <div className="rounded-3xl bg-sand p-6 sm:p-8">
+                <p className="text-sm font-semibold uppercase tracking-wider text-navy/60">Today</p>
+                <ul className="mt-5 space-y-4">
+                  {today.map((t) => (
+                    <li key={t} className="flex gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-navy/50 ring-1 ring-navy/10">
+                        <Icon name="x" className="h-4 w-4" />
+                      </span>
+                      <span className="pt-0.5 text-navy/80">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-3xl bg-navy p-6 text-white sm:p-8">
+                <p className="text-sm font-semibold uppercase tracking-wider text-gold">With your help</p>
+                <ul className="mt-5 space-y-4">
+                  {withYourHelp.map((t) => (
+                    <li key={t} className="flex gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold text-navy-deep">
+                        <Icon name="check" className="h-4 w-4" />
+                      </span>
+                      <span className="pt-0.5 text-white/90">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Plan */}
+        <section id="plan" className="py-16 sm:py-24">
+          <div className={container}>
+            <SectionHeader kicker="The plan" title="What we’re building">
+              The heart of this project is space for our children to learn and our community to gather. Expanding the
+              sanctuary is also part of the plan.
+            </SectionHeader>
+
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              <article className="flex flex-col rounded-3xl bg-navy p-6 text-white shadow-lg sm:p-8 lg:col-span-2 lg:row-span-2">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold text-navy-deep">
+                    <Icon name={plan.primary.icon} className="h-6 w-6" />
                   </span>
+                  <span className="rounded-full bg-gold px-3 py-1 text-xs font-semibold text-navy-deep">
+                    {plan.primary.badge}
+                  </span>
+                </div>
+                <h3 className="mt-6 font-display text-4xl font-semibold">{plan.primary.title}</h3>
+                <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/80">{plan.primary.text}</p>
+                <ul className="mt-6 grid gap-3 sm:grid-cols-3 lg:mt-auto lg:pt-8">
+                  {plan.primary.points.map((pt) => (
+                    <li key={pt} className="flex gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm">
+                      <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+              {plan.secondary.map((v) => (
+                <article key={v.title} className="rounded-3xl bg-white p-6 ring-1 ring-navy/10">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cream text-navy ring-1 ring-navy/10">
+                      <Icon name={v.icon} className="h-6 w-6" />
+                    </span>
+                    <span className="rounded-full bg-sand px-3 py-1 text-xs font-semibold text-navy/70">{v.badge}</span>
+                  </div>
                   <h3 className="mt-5 font-display text-2xl font-semibold">{v.title}</h3>
                   <p className="mt-2 text-navy/70">{v.text}</p>
-                </div>
+                </article>
               ))}
             </div>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-2">
+            <h3 className="mt-16 font-display text-3xl font-semibold">See the renovated church</h3>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
               {renderings.map((img) => (
-                <figure key={img.src} className="overflow-hidden rounded-3xl bg-cream ring-1 ring-navy/10">
+                <figure key={img.src} className="overflow-hidden rounded-3xl bg-white ring-1 ring-navy/10">
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -245,7 +329,7 @@ export default function Home() {
         </section>
 
         {/* Progress + impact */}
-        <section id="progress" className="py-16 sm:py-24">
+        <section id="progress" className="bg-white py-16 sm:py-24">
           <div className={container}>
             <SectionHeader kicker="Our progress" title={campaign.project}>
               {campaign.raised > 0
@@ -259,7 +343,7 @@ export default function Home() {
             <h3 className="mt-16 font-display text-3xl font-semibold">What your gift builds</h3>
             <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {impact.map((item) => (
-                <li key={item.title} className="rounded-3xl bg-white p-6 ring-1 ring-navy/10">
+                <li key={item.title} className="rounded-3xl bg-cream p-6 ring-1 ring-navy/10">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/15 text-gold-ink">
                     <Icon name="check" className="h-4 w-4" />
                   </span>
@@ -312,8 +396,9 @@ export default function Home() {
         {/* Give */}
         <section id="give" className="bg-white py-16 sm:py-24">
           <div className={container}>
-            <SectionHeader kicker="Give today" title="Help us finish the house of light">
-              Give once or monthly. Every gift goes toward the renovation of {church.name}.
+            <SectionHeader kicker="Give today" title="Give our children room to learn">
+              Give once or monthly. Every gift goes toward new classrooms, a gathering hall and an expanded sanctuary
+              at {church.shortName}.
             </SectionHeader>
 
             <div className="mt-10 grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">

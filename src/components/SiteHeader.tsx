@@ -52,7 +52,7 @@ export function SiteHeader() {
           </span>
         </a>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => (
             <a
               key={l.id}
@@ -73,7 +73,7 @@ export function SiteHeader() {
           </a>
         </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <a href="#give" className="rounded-full bg-navy px-4 py-2 text-sm font-semibold text-white">
             Donate
           </a>
@@ -97,7 +97,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Main" className="border-t border-navy/10 bg-cream px-4 pt-2 pb-4 md:hidden">
+        <nav id="mobile-menu" aria-label="Main" className="border-t border-navy/10 bg-cream px-4 pt-2 pb-4 lg:hidden">
           <ul className="space-y-1">
             {navLinks.map((l) => (
               <li key={l.id}>

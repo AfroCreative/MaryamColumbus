@@ -23,7 +23,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: `${campaign.name} · ${church.name}`,
-  description: `Help ${church.name} (${church.parish}) in Columbus, Ohio raise $4 million to renovate our church home.`,
+  description: `Help ${church.name} (${church.parish}) in Columbus, Ohio raise $4 million for new classrooms, a community gathering hall and an expanded sanctuary.`,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

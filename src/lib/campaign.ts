@@ -12,7 +12,7 @@ export const church = {
 
 export const campaign = {
   name: "Building a House of Light",
-  project: "$4 Million Renovation Project",
+  project: "$4 Million Building Project",
   goal: 4_000_000,
   // Running total. While it's 0 the page shows a pre-launch state pointing
   // to the banquet; enter the real figure to switch to the live meter.
@@ -81,15 +81,16 @@ export const fundraisingEvent = {
 } as const;
 
 export const givingTiers = [
-  { amount: 100, name: "Friend", note: "The price of a banquet seat, given toward the building." },
-  { amount: 500, name: "Builder", note: "Helps renew the sanctuary where we gather to pray." },
-  { amount: 1_000, name: "Pillar", note: "Builds room for fellowship, feasts and family milestones." },
-  { amount: 5_000, name: "Cornerstone", note: "A lasting foundation for the church and community." },
+  { amount: 100, name: "Friend", note: "Helps give a child a place to sit and learn." },
+  { amount: 500, name: "Builder", note: "Helps build new classrooms for our children and youth." },
+  { amount: 1_000, name: "Pillar", note: "Helps build a gathering hall for our whole community." },
+  { amount: 5_000, name: "Cornerstone", note: "A lasting foundation for the next generation." },
 ] as const;
 
 // Sections listed in the top menu, in page order.
 export const navLinks = [
-  { id: "vision", label: "Vision" },
+  { id: "why", label: "Why" },
+  { id: "plan", label: "The plan" },
   { id: "progress", label: "Progress" },
   { id: "banquet", label: "Banquet" },
   { id: "give", label: "Give" },
@@ -97,6 +98,10 @@ export const navLinks = [
 ] as const;
 
 export const faqs = [
+  {
+    q: "What will the money build?",
+    a: "New classrooms and a gathering hall come first: our current rooms are too small and crowded for everyone to sit and learn. The project also expands the sanctuary.",
+  },
   {
     q: "How do I buy a banquet ticket?",
     a: `Tickets are $${fundraisingEvent.price} per person. Send payment by Zelle to ${giving.zelle}, or pay with cash.`,
