@@ -37,9 +37,10 @@ Everything editable lives in `src/lib/campaign.ts`:
   it switches to the live meter.
 - `giving.zelle` / `giving.memo`: the Zelle address for gifts and tickets,
   and the memo donors are asked to add.
-- `campaign.givingUrl`: optional online giving page. While it's empty,
-  pressing Give shows Zelle, cash and check instructions for the chosen
-  amount.
+- `giving.cardUrl`: the SwipeSimple card payment page, used by the donation
+  form, "Ways to give", the banquet card and the footer. The amount isn't
+  passed in the link: pressing Give tells donors which amount to enter, with
+  Zelle, cash and check as alternatives.
 - `fundraisingEvent`: banquet date, time, venue, price and payment methods.
 - `givingTiers`, `faqs`, `navLinks`: gift amounts, FAQ entries and menu items.
 - `socials`: Facebook, Instagram and LinkedIn links (footer).

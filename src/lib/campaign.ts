@@ -18,15 +18,14 @@ export const campaign = {
   // to the banquet; enter the real figure to switch to the live meter.
   raised: 0,
   currency: "USD",
-  // TODO: link to the church's online giving page (Givelify, Tithe.ly, PayPal,
-  // Zeffy…). The donation form sends donors here with `amount` and
-  // `frequency` query parameters.
-  givingUrl: "",
   milestones: [1_000_000, 2_000_000, 3_000_000],
 } as const;
 
-// Offline ways to give, shared by the donation form and the banquet card.
+// Ways to pay, shared by the donation form, "Ways to give" and the banquet card.
 export const giving = {
+  // SwipeSimple card payment page (credit or debit). The amount isn't passed
+  // in the link, so the page tells payers which amount to enter.
+  cardUrl: "https://swipesimple.com/links/lnk_da3f6f218bd3c4a399f30258ee8edb92",
   zelle: "pay@maryamcolumbus.org",
   // Suggested Zelle memo so donations can be told apart from ticket payments.
   memo: "Renovation",
@@ -76,8 +75,8 @@ export const fundraisingEvent = {
   address: "5005 Chatterton Rd, Columbus, OH 43232",
   price: 100,
   highlights: ["Food", "Raffles", "Fellowship", "Live Entertainment"],
-  // Tickets are paid by Zelle or cash.
-  payment: { zelle: giving.zelle, cash: true },
+  // Tickets are paid by card, Zelle or cash.
+  payment: { cardUrl: giving.cardUrl, zelle: giving.zelle, cash: true },
 } as const;
 
 export const givingTiers = [
@@ -104,15 +103,15 @@ export const faqs = [
   },
   {
     q: "How do I buy a banquet ticket?",
-    a: `Tickets are $${fundraisingEvent.price} per person. Send payment by Zelle to ${giving.zelle}, or pay with cash.`,
+    a: `Tickets are $${fundraisingEvent.price} per person. Pay by credit or debit card on our secure payment page, by Zelle to ${giving.zelle}, or with cash.`,
   },
   {
     q: "How can I donate?",
-    a: `Send your gift by Zelle to ${giving.zelle} and add "${giving.memo}" in the memo. You can also give cash in person or mail a check payable to ${church.name}.`,
+    a: `Choose an amount in the Give section, then pay by credit or debit card on our secure payment page, or send it by Zelle to ${giving.zelle} with "${giving.memo}" in the memo. You can also give cash in person or mail a check payable to ${church.name}.`,
   },
   {
     q: "Can I give monthly?",
-    a: "Yes. Many banking apps let you schedule a Zelle payment to repeat every month.",
+    a: "Yes. Many banking apps let you schedule a Zelle payment to repeat every month, or you can make a card payment each month.",
   },
   {
     q: "Can I give through my employer?",

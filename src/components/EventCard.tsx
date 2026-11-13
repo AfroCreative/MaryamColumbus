@@ -59,13 +59,30 @@ export function EventCard() {
             <span className="text-[0.65rem] uppercase tracking-[0.25em] text-navy/60">per person</span>
           </p>
           <p className="text-right text-xs text-navy/60">
-            Pay with Zelle{ev.payment.cash ? " or cash" : ""}
+            Pay by card, Zelle{ev.payment.cash ? " or cash" : ""}
           </p>
         </div>
       </div>
 
       <div className="border-t border-navy/15 bg-navy/[0.04] px-6 py-5 sm:px-8">
         <p className="text-[0.65rem] uppercase tracking-[0.3em] text-navy/60">Get your ticket</p>
+        {ev.payment.cardUrl && (
+          <>
+            <a
+              href={ev.payment.cardUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 flex w-full items-center justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+            >
+              Pay {formatUSD(ev.price)} per person by card
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+            <p className="mt-2 text-xs text-navy/60">
+              On the payment page, enter {formatUSD(ev.price)} for each ticket.
+            </p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-navy/50">Or by Zelle</p>
+          </>
+        )}
         <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
           <p className="min-w-0 text-sm">
             Send {formatUSD(ev.price)} per person by <span className="font-semibold">Zelle</span> to

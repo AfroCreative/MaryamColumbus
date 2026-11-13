@@ -158,7 +158,7 @@ export default function Home() {
   const heroFacts: { icon: IconName; label: string; value: string }[] = [
     { icon: "target", label: "Goal", value: formatShortUSD(campaign.goal) },
     { icon: "calendar", label: "Banquet", value: eventShort },
-    { icon: "phone", label: "Give by", value: "Zelle" },
+    { icon: "phone", label: "Give by", value: "Card or Zelle" },
   ];
 
   return (
@@ -450,6 +450,22 @@ export default function Home() {
                 <h3 className="font-display text-3xl font-semibold">Ways to give</h3>
                 <dl className="mt-6 divide-y divide-navy/10">
                   <div className="pb-5">
+                    <dt className="font-semibold">Credit or debit card</dt>
+                    <dd className="mt-2">
+                      <a
+                        href={giving.cardUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                      >
+                        Pay by card
+                        <Icon name="external" className="h-4 w-4" />
+                        <span className="sr-only">(opens in a new tab)</span>
+                      </a>
+                    </dd>
+                    <dd className="mt-2 text-sm text-navy/70">Secure payment page. Enter the amount you’d like to give.</dd>
+                  </div>
+                  <div className="py-5">
                     <dt className="font-semibold">Zelle</dt>
                     <dd className="mt-2 flex flex-wrap items-center gap-3">
                       <span className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium ring-1 ring-navy/10 select-all">
@@ -569,8 +585,18 @@ export default function Home() {
             </ul>
           </nav>
           <div>
-            <p className="text-sm font-semibold text-white">Give by Zelle</p>
-            <p className="mt-3 text-sm">{giving.zelle}</p>
+            <p className="text-sm font-semibold text-white">Ways to give</p>
+            <a
+              href={giving.cardUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm hover:text-white"
+            >
+              Pay by card
+              <Icon name="external" className="h-3.5 w-3.5" />
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
+            <p className="mt-2 text-sm">Zelle: {giving.zelle}</p>
             <p className="mt-1 text-sm text-white/60">Memo: “{giving.memo}”</p>
             <p className="mt-6 text-sm font-semibold text-white">Nonprofit profile</p>
             <a
