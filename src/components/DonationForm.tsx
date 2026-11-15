@@ -31,18 +31,18 @@ export function DonationForm() {
   const focusRing = "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-navy";
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-navy/10 sm:p-8">
+    <form onSubmit={onSubmit} className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-line/10 sm:p-8">
       <h3 className="font-display text-3xl font-semibold">Make a gift</h3>
-      <p className="mt-1 text-sm text-navy/70">Choose an amount, then follow the steps to send it.</p>
+      <p className="mt-1 text-sm text-ink/70">Choose an amount, then follow the steps to send it.</p>
 
       <fieldset className="mt-6">
         <legend className="sr-only">Gift frequency</legend>
-        <div className="grid grid-cols-2 rounded-full bg-sand p-1">
+        <div className="grid grid-cols-2 rounded-full bg-subtle p-1">
           {(["once", "monthly"] as const).map((f) => (
             <label
               key={f}
               className={`cursor-pointer rounded-full py-2 text-center text-sm font-medium transition ${focusRing} ${
-                frequency === f ? "bg-white text-navy shadow-sm" : "text-navy/60 hover:text-navy"
+                frequency === f ? "bg-surface text-ink shadow-sm" : "text-ink/60 hover:text-ink"
               }`}
             >
               <input
@@ -60,13 +60,13 @@ export function DonationForm() {
       </fieldset>
 
       <fieldset className="mt-6">
-        <legend className="text-sm font-medium text-navy">Amount</legend>
+        <legend className="text-sm font-medium text-ink">Amount</legend>
         <div className="mt-3 grid grid-cols-2 gap-3">
           {givingTiers.map((t) => (
             <label
               key={t.amount}
               className={`cursor-pointer rounded-2xl px-4 py-3.5 ring-1 transition ${focusRing} ${
-                tier === t.amount ? "bg-navy text-white ring-navy" : "bg-cream ring-navy/10 hover:ring-navy/30"
+                tier === t.amount ? "bg-primary text-on-primary ring-primary" : "bg-page ring-line/10 hover:ring-line/30"
               }`}
             >
               <input
@@ -78,18 +78,18 @@ export function DonationForm() {
                 className="sr-only"
               />
               <span className="block font-display text-2xl font-semibold">{formatUSD(t.amount)}</span>
-              <span className={`block text-xs ${tier === t.amount ? "text-gold-light" : "text-navy/60"}`}>{t.name}</span>
+              <span className={`block text-xs ${tier === t.amount ? "text-on-primary/70" : "text-ink/60"}`}>{t.name}</span>
             </label>
           ))}
         </div>
 
         <label
           htmlFor={customId}
-          className={`mt-3 flex items-center gap-2 rounded-2xl px-4 py-3 ring-1 transition focus-within:ring-2 focus-within:ring-navy ${
-            tier === "custom" ? "bg-white ring-navy" : "bg-cream ring-navy/10"
+          className={`mt-3 flex items-center gap-2 rounded-2xl px-4 py-3 ring-1 transition focus-within:ring-2 focus-within:ring-ink ${
+            tier === "custom" ? "bg-surface ring-ink" : "bg-page ring-line/10"
           }`}
         >
-          <span className="font-display text-2xl text-navy/50">$</span>
+          <span className="font-display text-2xl text-ink/50">$</span>
           <input
             id={customId}
             inputMode="numeric"
@@ -100,20 +100,20 @@ export function DonationForm() {
               setTier("custom");
               setCustom(e.target.value.replace(/[^\d]/g, "").slice(0, 7));
             }}
-            className="w-full bg-transparent font-display text-2xl text-navy placeholder:text-navy/40 focus:outline-none"
+            className="w-full bg-transparent font-display text-2xl text-ink placeholder:text-ink/40 focus:outline-none"
             aria-label="Other amount in US dollars"
           />
         </label>
       </fieldset>
 
-      <p className="mt-4 min-h-[2.5rem] text-sm text-navy/70" aria-live="polite">
+      <p className="mt-4 min-h-[2.5rem] text-sm text-ink/70" aria-live="polite">
         {selected?.note ?? (valid ? "Every gift, of any size, builds this house of light." : "Enter an amount to continue.")}
       </p>
 
       <button
         type="submit"
         disabled={!valid}
-        className="mt-2 w-full rounded-full bg-gold px-6 py-4 text-base font-semibold text-navy-deep shadow-sm transition hover:bg-gold-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-2 w-full rounded-full bg-gold px-6 py-4 text-base font-semibold text-navy-deep shadow-sm transition hover:bg-gold-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-50"
       >
         {valid ? `Give ${formatUSD(amount)}${frequency === "monthly" ? " monthly" : ""}` : "Give"}
       </button>
@@ -143,30 +143,30 @@ export function DonationForm() {
             </div>
           )}
 
-          <div className="rounded-2xl bg-cream p-5 ring-1 ring-gold/50">
+          <div className="rounded-2xl bg-page p-5 ring-1 ring-gold/50">
             <p className="font-display text-2xl font-semibold">
               {giving.cardUrl ? "Or send" : "Send"} {formatUSD(amount)}
               {frequency === "monthly" ? " each month" : ""} by Zelle
             </p>
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-navy/10">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-surface px-4 py-3 ring-1 ring-line/10">
               <span className="font-semibold select-all">{giving.zelle}</span>
               <CopyButton
                 value={giving.zelle}
                 label={`Copy Zelle address ${giving.zelle}`}
-                className="shrink-0 rounded-full bg-navy px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                className="shrink-0 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-on-primary transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               />
             </div>
-            <ol className="mt-4 list-decimal space-y-1 pl-5 text-navy/80">
+            <ol className="mt-4 list-decimal space-y-1 pl-5 text-ink/80">
               <li>Open your banking app and choose Zelle.</li>
               <li>Send {formatUSD(amount)} to the address above.</li>
               <li>Add “{giving.memo}” in the memo so we can record your gift.</li>
             </ol>
             {frequency === "monthly" && (
-              <p className="mt-3 text-navy/70">Many banks let you schedule the payment to repeat monthly.</p>
+              <p className="mt-3 text-ink/70">Many banks let you schedule the payment to repeat monthly.</p>
             )}
           </div>
 
-          <p className="text-navy/60">
+          <p className="text-ink/60">
             You can also give cash in person, or mail a check payable to {church.name}, {church.address.street},{" "}
             {church.address.city}, {church.address.region} {church.address.postal}.
           </p>

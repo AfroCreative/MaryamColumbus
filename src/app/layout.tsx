@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter, Noto_Serif_Ethiopic } from "next/font/google";
 import { campaign, church } from "@/lib/campaign";
+import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -26,9 +27,21 @@ export const metadata: Metadata = {
   description: `Help ${church.name} (${church.parish}) in Columbus, Ohio raise $4 million for new classrooms, a community gathering hall and an expanded sanctuary.`,
 };
 
+// Tints the mobile browser bar to match the page in each mode.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf7f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+  ],
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable} ${ethiopic.variable}`}>
+    // The init script may set data-theme before React hydrates.
+    <html lang="en" className={`${cormorant.variable} ${inter.variable} ${ethiopic.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

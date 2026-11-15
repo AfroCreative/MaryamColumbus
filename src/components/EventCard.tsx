@@ -9,7 +9,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
  */
 export function EventCard() {
   return (
-    <article className="relative overflow-hidden rounded-3xl bg-cream text-navy shadow-2xl shadow-black/30">
+    <article className="relative overflow-hidden rounded-3xl bg-paper text-navy shadow-2xl shadow-black/30">
       <div className="bg-navy px-6 py-5 text-white sm:px-8">
         <p className="text-[0.65rem] uppercase tracking-[0.3em] text-gold">Join us in person</p>
         <h3 className="mt-1 font-display text-3xl">{ev.title}</h3>

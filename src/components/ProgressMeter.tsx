@@ -47,22 +47,22 @@ export function ProgressMeter() {
       ];
 
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-navy/10 sm:p-10">
+    <div className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-line/10 sm:p-10">
       <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2">
         <div>
-          <p className="text-sm font-medium text-gold-ink">{launched ? "Raised so far" : "Our goal"}</p>
+          <p className="text-sm font-medium text-accent">{launched ? "Raised so far" : "Our goal"}</p>
           <p className="mt-1 font-display text-5xl font-semibold tabular-nums sm:text-6xl">
             {formatUSD(launched ? raised : goal)}
           </p>
         </div>
-        <p className="pb-2 text-navy/70">
+        <p className="pb-2 text-ink/70">
           {launched ? (
             <>
-              of <span className="font-semibold text-navy">{formatUSD(goal)}</span> goal
+              of <span className="font-semibold text-ink">{formatUSD(goal)}</span> goal
             </>
           ) : (
             <>
-              Campaign begins <span className="font-semibold text-navy">{fmt({ month: "long", day: "numeric", year: "numeric" })}</span>
+              Campaign begins <span className="font-semibold text-ink">{fmt({ month: "long", day: "numeric", year: "numeric" })}</span>
             </>
           )}
         </p>
@@ -77,17 +77,17 @@ export function ProgressMeter() {
         aria-valuetext={
           launched ? `${formatUSD(raised)} of ${formatUSD(goal)}` : `Campaign not yet started. Goal ${formatUSD(goal)}.`
         }
-        className="relative mt-8 h-4 overflow-hidden rounded-full bg-sand"
+        className="relative mt-8 h-4 overflow-hidden rounded-full bg-subtle"
       >
         <div
-          className="h-full rounded-full bg-gradient-to-r from-gold to-gold-ink"
+          className="h-full rounded-full bg-gradient-to-r from-gold to-accent"
           style={{ width: `${pct * 100}%` }}
         />
         {milestones.map((m) => (
-          <span key={m} className="absolute inset-y-0 w-px bg-navy/15" style={{ left: `${(m / goal) * 100}%` }} />
+          <span key={m} className="absolute inset-y-0 w-px bg-ink/15" style={{ left: `${(m / goal) * 100}%` }} />
         ))}
       </div>
-      <div className="relative mt-2 h-5 text-xs text-navy/60">
+      <div className="relative mt-2 h-5 text-xs text-ink/60">
         <span className="absolute left-0">$0</span>
         {milestones.map((m) => (
           <span key={m} className="absolute -translate-x-1/2 tabular-nums" style={{ left: `${(m / goal) * 100}%` }}>
@@ -99,8 +99,8 @@ export function ProgressMeter() {
 
       <dl className="mt-8 grid grid-cols-3 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl bg-cream px-3 py-4 text-center ring-1 ring-navy/5 sm:px-5">
-            <dt className="text-xs font-medium text-navy/60">{s.label}</dt>
+          <div key={s.label} className="rounded-2xl bg-page px-3 py-4 text-center ring-1 ring-line/5 sm:px-5">
+            <dt className="text-xs font-medium text-ink/60">{s.label}</dt>
             <dd className="mt-1 font-display text-2xl font-semibold tabular-nums sm:text-3xl">{s.value}</dd>
           </div>
         ))}

@@ -20,9 +20,9 @@ import {
 } from "@/lib/campaign";
 
 const container = "mx-auto max-w-6xl px-4 sm:px-6 lg:px-8";
-const eyebrow = "text-sm font-semibold uppercase tracking-wider text-gold-ink";
+const eyebrow = "text-sm font-semibold uppercase tracking-wider text-accent";
 const h2 = "mt-2 font-display text-4xl font-semibold leading-tight text-balance sm:text-5xl";
-const lead = "mt-4 text-lg leading-relaxed text-navy/75 text-pretty";
+const lead = "mt-4 text-lg leading-relaxed text-ink/75 text-pretty";
 
 // Small outline icons (24px grid) used on cards and chips.
 const icons = {
@@ -165,7 +165,7 @@ export default function Home() {
     <>
       <a
         href="#main"
-        className="sr-only rounded-full bg-navy px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50"
+        className="sr-only rounded-full bg-primary px-4 py-2 text-on-primary focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50"
       >
         Skip to content
       </a>
@@ -177,27 +177,27 @@ export default function Home() {
           <div className={`${container} grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.05fr_1fr]`}>
             <div>
               <p className={eyebrow}>{church.name}</p>
-              <p lang="ti" className="mt-2 font-ethiopic text-lg text-navy/70">
+              <p lang="ti" className="mt-2 font-ethiopic text-lg text-ink/70">
                 {church.parishGeez}
               </p>
               <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] text-balance sm:text-6xl lg:text-7xl">
-                Room for every child to <span className="text-gold-ink italic">learn and grow</span>
+                Room for every child to <span className="text-accent italic">learn and grow</span>
               </h1>
               <p className={`${lead} max-w-xl`}>
                 Our classrooms are too small and crowded: there isn’t enough space for everyone to sit and learn. Help
-                us raise <strong className="font-semibold text-navy">{formatUSD(campaign.goal)}</strong> to build new
+                us raise <strong className="font-semibold text-ink">{formatUSD(campaign.goal)}</strong> to build new
                 classrooms and a gathering hall for our community, and to expand our sanctuary.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="#give"
-                  className="rounded-full bg-navy px-7 py-3.5 font-semibold text-white shadow-sm transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                  className="rounded-full bg-primary px-7 py-3.5 font-semibold text-on-primary shadow-sm transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                 >
                   Donate now
                 </a>
                 <a
                   href="#banquet"
-                  className="rounded-full bg-white px-7 py-3.5 font-semibold text-navy ring-1 ring-navy/15 transition hover:ring-navy/40"
+                  className="rounded-full bg-surface px-7 py-3.5 font-semibold text-ink ring-1 ring-line/15 transition hover:ring-line/40"
                 >
                   Banquet tickets
                 </a>
@@ -206,13 +206,13 @@ export default function Home() {
                 {heroFacts.map((c) => (
                   <li
                     key={c.label}
-                    className="flex flex-col gap-2 rounded-2xl bg-white px-3 py-3 ring-1 ring-navy/10 sm:flex-row sm:items-center sm:gap-3 sm:px-4"
+                    className="flex flex-col gap-2 rounded-2xl bg-surface px-3 py-3 ring-1 ring-line/10 sm:flex-row sm:items-center sm:gap-3 sm:px-4"
                   >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-ink">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/15 text-accent">
                       <Icon name={c.icon} />
                     </span>
                     <span className="leading-tight">
-                      <span className="block text-xs text-navy/60">{c.label}</span>
+                      <span className="block text-xs text-ink/60">{c.label}</span>
                       <span className="block font-semibold whitespace-nowrap">{c.value}</span>
                     </span>
                   </li>
@@ -221,7 +221,7 @@ export default function Home() {
             </div>
 
             <figure className="relative pb-6">
-              <div className="overflow-hidden rounded-3xl shadow-xl ring-1 ring-navy/10">
+              <div className="overflow-hidden rounded-3xl shadow-xl ring-1 ring-line/10">
                 <Image
                   src="/images/facade.webp"
                   alt="Rendering of the renovated church entrance, with the icon of St. Mary above the arched glass doors"
@@ -232,11 +232,11 @@ export default function Home() {
                   className="h-auto w-full lg:aspect-[5/4] lg:object-cover"
                 />
               </div>
-              <figcaption className="absolute bottom-0 left-5 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-navy/10">
+              <figcaption className="absolute bottom-0 left-5 flex items-center gap-3 rounded-2xl bg-surface px-4 py-3 shadow-lg ring-1 ring-line/10">
                 <Image src="/debre-brhan-emblem.png" alt="" width={36} height={36} className="h-9 w-9" />
                 <span className="text-sm leading-tight">
                   <span className="block font-semibold">Campaign launches</span>
-                  <span className="text-navy/60">{fundraisingEvent.dateLabel}</span>
+                  <span className="text-ink/60">{fundraisingEvent.dateLabel}</span>
                 </span>
               </figcaption>
             </figure>
@@ -244,7 +244,7 @@ export default function Home() {
         </section>
 
         {/* Why */}
-        <section id="why" className="bg-white py-16 sm:py-24">
+        <section id="why" className="bg-surface py-16 sm:py-24">
           <div className={container}>
             <SectionHeader kicker="Why we’re building" title="Our classrooms are full">
               Our children come to St. Mary to learn the faith, but the rooms we have are too small and crowded. There
@@ -256,7 +256,7 @@ export default function Home() {
               {todayPhotos.map((ph, i) => (
                 <figure
                   key={ph.src}
-                  className={`flex flex-col overflow-hidden rounded-3xl bg-cream ring-1 ring-navy/10 ${i === 0 ? "lg:col-span-2" : ""}`}
+                  className={`flex flex-col overflow-hidden rounded-3xl bg-page ring-1 ring-line/10 ${i === 0 ? "lg:col-span-2" : ""}`}
                 >
                   <Image
                     src={ph.src}
@@ -268,22 +268,22 @@ export default function Home() {
                   />
                   <figcaption className="px-5 py-3 text-sm">
                     <span className="font-semibold">{ph.caption}</span>
-                    <span className="text-navy/60"> · {ph.note}</span>
+                    <span className="text-ink/60"> · {ph.note}</span>
                   </figcaption>
                 </figure>
               ))}
             </div>
 
             <div className="mt-5 grid gap-5 md:grid-cols-2">
-              <div className="rounded-3xl bg-sand p-6 sm:p-8">
-                <p className="text-sm font-semibold uppercase tracking-wider text-navy/60">Today</p>
+              <div className="rounded-3xl bg-subtle p-6 sm:p-8">
+                <p className="text-sm font-semibold uppercase tracking-wider text-ink/60">Today</p>
                 <ul className="mt-5 space-y-4">
                   {today.map((t) => (
                     <li key={t} className="flex gap-3">
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-navy/50 ring-1 ring-navy/10">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface text-ink/50 ring-1 ring-line/10">
                         <Icon name="x" className="h-4 w-4" />
                       </span>
-                      <span className="pt-0.5 text-navy/80">{t}</span>
+                      <span className="pt-0.5 text-ink/80">{t}</span>
                     </li>
                   ))}
                 </ul>
@@ -335,15 +335,15 @@ export default function Home() {
                 </ul>
               </article>
               {plan.secondary.map((v) => (
-                <article key={v.title} className="rounded-3xl bg-white p-6 ring-1 ring-navy/10">
+                <article key={v.title} className="rounded-3xl bg-surface p-6 ring-1 ring-line/10">
                   <div className="flex items-center justify-between gap-4">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cream text-navy ring-1 ring-navy/10">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-page text-ink ring-1 ring-line/10">
                       <Icon name={v.icon} className="h-6 w-6" />
                     </span>
-                    <span className="rounded-full bg-sand px-3 py-1 text-xs font-semibold text-navy/70">{v.badge}</span>
+                    <span className="rounded-full bg-subtle px-3 py-1 text-xs font-semibold text-ink/70">{v.badge}</span>
                   </div>
                   <h3 className="mt-5 font-display text-2xl font-semibold">{v.title}</h3>
-                  <p className="mt-2 text-navy/70">{v.text}</p>
+                  <p className="mt-2 text-ink/70">{v.text}</p>
                 </article>
               ))}
             </div>
@@ -351,7 +351,7 @@ export default function Home() {
             <h3 className="mt-16 font-display text-3xl font-semibold">The renovated church</h3>
             <div className="mt-6 grid gap-5 md:grid-cols-2">
               {renderings.map((img) => (
-                <figure key={img.src} className="overflow-hidden rounded-3xl bg-white ring-1 ring-navy/10">
+                <figure key={img.src} className="overflow-hidden rounded-3xl bg-surface ring-1 ring-line/10">
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -362,7 +362,7 @@ export default function Home() {
                   />
                   <figcaption className="flex items-center justify-between px-5 py-3 text-sm">
                     <span className="font-semibold">{img.caption}</span>
-                    <span className="text-navy/60">Architectural rendering</span>
+                    <span className="text-ink/60">Architectural rendering</span>
                   </figcaption>
                 </figure>
               ))}
@@ -371,7 +371,7 @@ export default function Home() {
         </section>
 
         {/* Progress + impact */}
-        <section id="progress" className="bg-white py-16 sm:py-24">
+        <section id="progress" className="bg-surface py-16 sm:py-24">
           <div className={container}>
             <SectionHeader kicker="Our progress" title={campaign.project}>
               {campaign.raised > 0
@@ -385,12 +385,12 @@ export default function Home() {
             <h3 className="mt-16 font-display text-3xl font-semibold">What your gift builds</h3>
             <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {impact.map((item) => (
-                <li key={item.title} className="rounded-3xl bg-cream p-6 ring-1 ring-navy/10">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/15 text-gold-ink">
+                <li key={item.title} className="rounded-3xl bg-page p-6 ring-1 ring-line/10">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/15 text-accent">
                     <Icon name="check" className="h-4 w-4" />
                   </span>
                   <h4 className="mt-4 font-display text-xl font-semibold">{item.title}</h4>
-                  <p className="mt-2 text-sm text-navy/70">{item.text}</p>
+                  <p className="mt-2 text-sm text-ink/70">{item.text}</p>
                 </li>
               ))}
             </ul>
@@ -436,7 +436,7 @@ export default function Home() {
         </section>
 
         {/* Give */}
-        <section id="give" className="bg-white py-16 sm:py-24">
+        <section id="give" className="bg-surface py-16 sm:py-24">
           <div className={container}>
             <SectionHeader kicker="Give today" title="Give our children room to learn">
               Give once or monthly. Every gift goes toward new classrooms, a gathering hall and an expanded sanctuary
@@ -446,9 +446,9 @@ export default function Home() {
             <div className="mt-10 grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
               <DonationForm />
 
-              <div className="rounded-3xl bg-cream p-6 ring-1 ring-navy/10 sm:p-8">
+              <div className="rounded-3xl bg-page p-6 ring-1 ring-line/10 sm:p-8">
                 <h3 className="font-display text-3xl font-semibold">Ways to give</h3>
-                <dl className="mt-6 divide-y divide-navy/10">
+                <dl className="mt-6 divide-y divide-line/10">
                   <div className="pb-5">
                     <dt className="font-semibold">Credit or debit card</dt>
                     <dd className="mt-2">
@@ -456,36 +456,36 @@ export default function Home() {
                         href={giving.cardUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                        className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                       >
                         Pay by card
                         <Icon name="external" className="h-4 w-4" />
                         <span className="sr-only">(opens in a new tab)</span>
                       </a>
                     </dd>
-                    <dd className="mt-2 text-sm text-navy/70">Secure payment page. Enter the amount you’d like to give.</dd>
+                    <dd className="mt-2 text-sm text-ink/70">Secure payment page. Enter the amount you’d like to give.</dd>
                   </div>
                   <div className="py-5">
                     <dt className="font-semibold">Zelle</dt>
                     <dd className="mt-2 flex flex-wrap items-center gap-3">
-                      <span className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium ring-1 ring-navy/10 select-all">
+                      <span className="rounded-lg bg-surface px-3 py-1.5 text-sm font-medium ring-1 ring-line/10 select-all">
                         {giving.zelle}
                       </span>
                       <CopyButton
                         value={giving.zelle}
                         label={`Copy Zelle address ${giving.zelle}`}
-                        className="rounded-full bg-navy px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                        className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-on-primary transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                       />
                     </dd>
-                    <dd className="mt-2 text-sm text-navy/70">Add “{giving.memo}” in the memo.</dd>
+                    <dd className="mt-2 text-sm text-ink/70">Add “{giving.memo}” in the memo.</dd>
                   </div>
                   <div className="py-5">
                     <dt className="font-semibold">Cash</dt>
-                    <dd className="mt-1 text-sm text-navy/70">In person at the church.</dd>
+                    <dd className="mt-1 text-sm text-ink/70">In person at the church.</dd>
                   </div>
                   <div className="pt-5">
                     <dt className="font-semibold">Check by mail</dt>
-                    <dd className="mt-1 text-sm text-navy/70">
+                    <dd className="mt-1 text-sm text-ink/70">
                       Payable to {church.name}
                       <br />
                       {street}, {city}, {region} {postal}
@@ -498,29 +498,29 @@ export default function Home() {
             <div className="mt-12">
               <div className="flex flex-wrap items-end justify-between gap-2">
                 <h3 className="font-display text-3xl font-semibold">Give online or through work</h3>
-                <p className="text-sm text-navy/60">
-                  EIN <span className="font-semibold text-navy">{ein}</span>
+                <p className="text-sm text-ink/60">
+                  EIN <span className="font-semibold text-ink">{ein}</span>
                 </p>
               </div>
               <ul className="mt-6 grid gap-5 md:grid-cols-3">
                 {givingPlatforms.map((g) => (
-                  <li key={g.name} className="flex flex-col rounded-3xl bg-cream p-6 ring-1 ring-navy/10">
+                  <li key={g.name} className="flex flex-col rounded-3xl bg-page p-6 ring-1 ring-line/10">
                     <p className="font-display text-2xl font-semibold">{g.name}</p>
-                    <p className="mt-1 text-sm text-navy/70">{g.description}</p>
+                    <p className="mt-1 text-sm text-ink/70">{g.description}</p>
                     <div className="mt-auto pt-5">
                       {g.url ? (
                         <a
                           href={g.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold ring-1 ring-navy/15 transition hover:ring-navy/40"
+                          className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-semibold ring-1 ring-line/15 transition hover:ring-line/40"
                         >
                           {g.cta}
                           <Icon name="external" className="h-4 w-4" />
                           <span className="sr-only">(opens in a new tab)</span>
                         </a>
                       ) : (
-                        <p className="text-sm text-navy/60">Search for our church by name or EIN.</p>
+                        <p className="text-sm text-ink/60">Search for our church by name or EIN.</p>
                       )}
                     </div>
                   </li>
@@ -534,19 +534,19 @@ export default function Home() {
         <section id="faq" className="py-16 sm:py-24">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <SectionHeader kicker="Questions" title="Frequently asked questions" />
-            <div className="mt-8 divide-y divide-navy/10 rounded-3xl bg-white ring-1 ring-navy/10">
+            <div className="mt-8 divide-y divide-line/10 rounded-3xl bg-surface ring-1 ring-line/10">
               {faqs.map((f) => (
                 <details key={f.q} className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                     {f.q}
                     <span
                       aria-hidden
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sand text-lg leading-none transition group-open:rotate-45"
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-subtle text-lg leading-none transition group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-navy/70">{f.a}</p>
+                  <p className="mt-3 text-ink/70">{f.a}</p>
                 </details>
               ))}
             </div>

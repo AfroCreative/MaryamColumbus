@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { church, navLinks } from "@/lib/campaign";
 
 /** Tracks which section is under the header so the menu can highlight it. */
@@ -39,13 +40,13 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-navy/10 bg-cream/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-line/10 bg-page/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <a href="#top" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <Image src="/debre-brhan-emblem.png" alt="" width={40} height={40} className="h-10 w-10 shrink-0" priority />
           <span className="min-w-0 leading-tight">
-            <span className="block truncate font-display text-xl font-semibold text-navy">{church.shortName}</span>
-            <span className="block truncate text-xs text-navy/60">
+            <span className="block truncate font-display text-xl font-semibold text-ink">{church.shortName}</span>
+            <span className="block truncate text-xs text-ink/60">
               {church.parish}
               <span className="hidden sm:inline"> · Columbus, Ohio</span>
             </span>
@@ -59,7 +60,7 @@ export function SiteHeader() {
               href={`#${l.id}`}
               aria-current={active === l.id ? "location" : undefined}
               className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
-                active === l.id ? "bg-navy/10 text-navy" : "text-navy/70 hover:bg-navy/5 hover:text-navy"
+                active === l.id ? "bg-ink/10 text-ink" : "text-ink/70 hover:bg-ink/5 hover:text-ink"
               }`}
             >
               {l.label}
@@ -67,23 +68,25 @@ export function SiteHeader() {
           ))}
           <a
             href="#give"
-            className="ml-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-navy-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+            className="ml-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
           >
             Donate
           </a>
+          <ThemeToggle className="ml-1" />
         </nav>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <a href="#give" className="rounded-full bg-navy px-4 py-2 text-sm font-semibold text-white">
+          <a href="#give" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-on-primary">
             Donate
           </a>
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-navy ring-1 ring-navy/15 transition hover:bg-navy/5"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink ring-1 ring-line/15 transition hover:bg-ink/5"
           >
             <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
               {open ? (
@@ -97,7 +100,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Main" className="border-t border-navy/10 bg-cream px-4 pt-2 pb-4 lg:hidden">
+        <nav id="mobile-menu" aria-label="Main" className="border-t border-line/10 bg-page px-4 pt-2 pb-4 lg:hidden">
           <ul className="space-y-1">
             {navLinks.map((l) => (
               <li key={l.id}>
@@ -106,7 +109,7 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   aria-current={active === l.id ? "location" : undefined}
                   className={`block rounded-xl px-4 py-3 text-base font-medium ${
-                    active === l.id ? "bg-navy/10 text-navy" : "text-navy/80 hover:bg-navy/5"
+                    active === l.id ? "bg-ink/10 text-ink" : "text-ink/80 hover:bg-ink/5"
                   }`}
                 >
                   {l.label}

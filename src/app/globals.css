@@ -1,30 +1,84 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-cream: #faf7f1;
-  --color-sand: #f1ebdf;
+  /* Brand colours: the same in light and dark mode (navy panels, gold
+     buttons, the printed-ticket card). */
   --color-navy: #0f2a4f;
   --color-navy-deep: #0a1d38;
   --color-gold: #c9a24f;
   --color-gold-light: #e8d6a8;
-  /* Darker gold for text on light backgrounds (meets 4.5:1 on cream). */
-  --color-gold-ink: #7d5f1f;
+  --color-paper: #faf7f1;
+
+  /* Theme colours: switch with light/dark mode (values below). */
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
 
   --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-ethiopic: var(--font-noto-ethiopic), var(--font-cormorant), serif;
 }
 
+:root {
+  color-scheme: light;
+  --page: #faf7f1;
+  --surface: #ffffff;
+  --subtle: #f1ebdf;
+  --ink: #0f2a4f;
+  --line: #0f2a4f;
+  /* Darker gold for text on light backgrounds (meets 4.5:1 on cream). */
+  --accent: #7d5f1f;
+  --primary: #0f2a4f;
+  --primary-hover: #0a1d38;
+  --on-primary: #ffffff;
+}
+
+/* Dark mode follows the system setting unless the visitor picked light;
+   data-theme is set by the header toggle (and an inline script on load). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0b1220;
+    --surface: #121c2e;
+    --subtle: #1b273c;
+    --ink: #e8edf5;
+    --line: #c9d4e5;
+    --accent: #dcbb6c;
+    --primary: #e8d6a8;
+    --primary-hover: #f3e6c4;
+    --on-primary: #0a1d38;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0b1220;
+  --surface: #121c2e;
+  --subtle: #1b273c;
+  --ink: #e8edf5;
+  --line: #c9d4e5;
+  --accent: #dcbb6c;
+  --primary: #e8d6a8;
+  --primary-hover: #f3e6c4;
+  --on-primary: #0a1d38;
+}
+
 html {
   scroll-behavior: smooth;
   /* Keep section headings clear of the sticky header when jumping via the menu. */
   scroll-padding-top: 5.5rem;
-  background: var(--color-cream);
+  background: var(--color-page);
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-navy);
+  background: var(--color-page);
+  color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
