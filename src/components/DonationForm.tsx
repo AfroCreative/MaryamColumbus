@@ -107,7 +107,7 @@ export function DonationForm() {
       </fieldset>
 
       <p className="mt-4 min-h-[2.5rem] text-sm text-ink/70" aria-live="polite">
-        {selected?.note ?? (valid ? "Every gift, of any size, builds this house of light." : "Enter an amount to continue.")}
+        {selected?.note ?? (valid ? "Every gift, of any size, helps build Debre Brhan." : "Enter an amount to continue.")}
       </p>
 
       <button

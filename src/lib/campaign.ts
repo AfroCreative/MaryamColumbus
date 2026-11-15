@@ -11,7 +11,7 @@ export const church = {
 } as const;
 
 export const campaign = {
-  name: "Building a House of Light",
+  name: "Building Debre Brhan",
   project: "$4 Million Building Project",
   goal: 4_000_000,
   // Starting total, used only until someone saves one at /admin (the live
