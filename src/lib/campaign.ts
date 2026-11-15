@@ -16,7 +16,7 @@ export const campaign = {
   goal: 4_000_000,
   // Starting total, used only until someone saves one at /admin (the live
   // total is stored on the server; see src/lib/progress-store.ts).
-  raised: 0,
+  raised: 19_000,
   currency: "USD",
   milestones: [1_000_000, 2_000_000, 3_000_000],
 } as const;
