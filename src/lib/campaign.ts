@@ -14,8 +14,8 @@ export const campaign = {
   name: "Building a House of Light",
   project: "$4 Million Building Project",
   goal: 4_000_000,
-  // Running total. While it's 0 the page shows a pre-launch state pointing
-  // to the banquet; enter the real figure to switch to the live meter.
+  // Starting total, used only until someone saves one at /admin (the live
+  // total is stored on the server; see src/lib/progress-store.ts).
   raised: 0,
   currency: "USD",
   milestones: [1_000_000, 2_000_000, 3_000_000],

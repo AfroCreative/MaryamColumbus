@@ -22,7 +22,7 @@ section:
 
 | Section | What it shows |
 | --- | --- |
-| Hero | Church name, goal, donate and banquet buttons, the facade rendering |
+| Hero | Church name, goal, donate and banquet buttons, the facade rendering, live amount raised |
 | Why (`#why`) | Drone photos of the church today, then crowded classrooms vs. what the project builds |
 | The plan (`#plan`) | New classrooms (main focus), gathering hall, sanctuary expansion, renderings |
 | Progress (`#progress`) | Goal / raised meter and "What your gift builds" cards |
@@ -30,11 +30,30 @@ section:
 | Give (`#give`) | Donation form, Zelle / cash / check, and Candid / Benevity / Bonterra |
 | FAQ (`#faq`) | Common questions |
 
+## Updating the amount raised (admin)
+Sign in at **`/admin/login`** to update the total. On `/admin` you can
+**add a gift** to the total or **set the total**. The home page reads the
+saved total on every visit, and pages already open re-check it every 30
+seconds (`/api/progress`).
+
+Server settings (see `.env.example`; locally, put them in `.env.local`):
+- `ADMIN_PASSWORD` (required): the password for `/admin`. Until it's set the
+  login page says admin isn't set up and nobody can sign in.
+- `SESSION_SECRET` (optional): signs the 8-hour login cookie.
+- Storage: on a regular Node server (`npm run build && npm start`) the total
+  is saved to `data/progress.json` (`PROGRESS_FILE` to change it). On Vercel
+  or another serverless host, add a free Upstash Redis database and set
+  `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (Vercel KV's
+  `KV_REST_API_URL` / `KV_REST_API_TOKEN` also work).
+
+Before launch the progress card shows the goal and a countdown to the
+banquet. Once a total is saved or the banquet date has passed, it shows the
+live meter.
+
 ## Updating content
 Everything editable lives in `src/lib/campaign.ts`:
-- `campaign.raised`: the running total. While it's `0`, the progress card
-  shows the goal and a countdown to the banquet. Enter the real figure and
-  it switches to the live meter.
+- `campaign.raised`: the starting total, used only until one is saved at
+  `/admin`.
 - `giving.zelle` / `giving.memo`: the Zelle address for gifts and tickets,
   and the memo donors are asked to add.
 - `giving.cardUrl`: the SwipeSimple card payment page, used by the donation

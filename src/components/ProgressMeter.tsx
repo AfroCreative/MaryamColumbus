@@ -19,14 +19,44 @@ function useDaysUntil(iso: string) {
   return days;
 }
 
+const POLL_MS = 30_000;
+
+/** Starts from the server's total, then re-checks /api/progress so open pages stay current. */
+function useLiveRaised(initial: number) {
+  const [raised, setRaised] = useState(initial);
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      if (document.visibilityState !== "visible") return;
+      try {
+        const res = await fetch("/api/progress", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = (await res.json()) as { raised?: unknown };
+        if (active && typeof data.raised === "number") setRaised(data.raised);
+      } catch {
+        // Offline or server hiccup: keep showing the last known total.
+      }
+    };
+    const id = window.setInterval(refresh, POLL_MS);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      active = false;
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, []);
+  return raised;
+}
+
 /**
- * Raised-vs-goal card. Until the first gift is recorded (`campaign.raised`
- * is 0) it shows the goal and a countdown to the banquet where the campaign
- * launches; entering a real total switches it to the live meter.
+ * Raised-vs-goal card. Before the campaign launches (nothing raised yet and
+ * the banquet still ahead) it shows the goal and a countdown to the banquet;
+ * after that it shows the live total, which admins update at /admin.
  */
-export function ProgressMeter() {
-  const { goal, raised, milestones } = campaign;
-  const launched = raised > 0;
+export function ProgressMeter({ initialRaised, eventPassed }: { initialRaised: number; eventPassed: boolean }) {
+  const { goal, milestones } = campaign;
+  const raised = useLiveRaised(initialRaised);
+  const launched = raised > 0 || eventPassed;
   const pct = Math.min(raised / goal, 1);
   const days = useDaysUntil(fundraisingEvent.date);
   const daysLabel = days === null ? "—" : days > 0 ? String(days) : "Today";

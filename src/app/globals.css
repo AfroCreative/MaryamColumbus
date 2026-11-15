@@ -19,6 +19,7 @@
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-on-primary: var(--on-primary);
+  --color-danger: var(--danger);
 
   --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -37,6 +38,7 @@
   --primary: #0f2a4f;
   --primary-hover: #0a1d38;
   --on-primary: #ffffff;
+  --danger: #b42318;
 }
 
 /* Dark mode follows the system setting unless the visitor picked light;
@@ -53,6 +55,7 @@
     --primary: #e8d6a8;
     --primary-hover: #f3e6c4;
     --on-primary: #0a1d38;
+    --danger: #fca5a5;
   }
 }
 
@@ -67,6 +70,7 @@
   --primary: #e8d6a8;
   --primary-hover: #f3e6c4;
   --on-primary: #0a1d38;
+  --danger: #fca5a5;
 }
 
 html {

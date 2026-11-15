@@ -6,6 +6,7 @@ import { EventCard } from "@/components/EventCard";
 import { ProgressMeter } from "@/components/ProgressMeter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SocialLinks } from "@/components/SocialLinks";
+import { getProgress } from "@/lib/progress-store";
 import {
   campaign,
   church,
@@ -147,8 +148,16 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
   `${fundraisingEvent.venue}, ${fundraisingEvent.address}`,
 )}`;
 
-export default function Home() {
+// Rendered per request so the amount raised (updated at /admin) is always current.
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
   const { street, city, region, postal } = church.address;
+  const { raised } = await getProgress();
+  const eventPassed = Date.now() >= Date.parse(fundraisingEvent.date);
+  // The campaign is live once money is recorded or the launch banquet has happened.
+  const launched = raised > 0 || eventPassed;
+  const pct = Math.round(Math.min(raised / campaign.goal, 1) * 100);
   const eventShort = new Date(fundraisingEvent.date).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -235,8 +244,19 @@ export default function Home() {
               <figcaption className="absolute bottom-0 left-5 flex items-center gap-3 rounded-2xl bg-surface px-4 py-3 shadow-lg ring-1 ring-line/10">
                 <Image src="/debre-brhan-emblem.png" alt="" width={36} height={36} className="h-9 w-9" />
                 <span className="text-sm leading-tight">
-                  <span className="block font-semibold">Campaign launches</span>
-                  <span className="text-ink/60">{fundraisingEvent.dateLabel}</span>
+                  {launched ? (
+                    <>
+                      <span className="block font-semibold">{formatUSD(raised)} raised</span>
+                      <span className="text-ink/60">
+                        {pct}% of our {formatShortUSD(campaign.goal)} goal
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="block font-semibold">Campaign launches</span>
+                      <span className="text-ink/60">{fundraisingEvent.dateLabel}</span>
+                    </>
+                  )}
                 </span>
               </figcaption>
             </figure>
@@ -374,12 +394,12 @@ export default function Home() {
         <section id="progress" className="bg-surface py-16 sm:py-24">
           <div className={container}>
             <SectionHeader kicker="Our progress" title={campaign.project}>
-              {campaign.raised > 0
+              {launched
                 ? "Every gift, large or small, moves the line forward."
                 : `Our campaign begins at the fundraising banquet on ${fundraisingEvent.dateLabel}. Be among the first to give: every gift from that day on moves the line forward.`}
             </SectionHeader>
             <div className="mt-10">
-              <ProgressMeter />
+              <ProgressMeter initialRaised={raised} eventPassed={eventPassed} />
             </div>
 
             <h3 className="mt-16 font-display text-3xl font-semibold">What your gift builds</h3>
